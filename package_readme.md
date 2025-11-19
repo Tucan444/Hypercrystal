@@ -16,5 +16,5 @@ pip install --editable .
 
 ## Documentation
 
-For full documentation, examples, and more information, visit the [GitHub repository](https://github.com/YOUR_GITHUB_USERNAME/hypercrystal).
+For full documentation, examples, and more information, visit the [GitHub repository](https://github.com/Tucan444/Hypercrystal).
 

@@ -33,8 +33,8 @@ camera = H2Camera(H2Vector(), H2Vector.FromHyperbolical(0, 0.5), zoom=0.95)
 projection = GeneralPerspectiveModel(camera, (900, 700), perspective_distance=3)
 ```
 
-Explore the runnable examples under `examples/` (e.g.
-`python examples/tessellations.py`) to see full scenes with interactivity.
+Explore the runnable examples under [examples/](examples) (e.g.
+[`python examples/tessellations.py`](examples/tessellations.py)) to see full scenes with interactivity.
 
 ## Pipeline
 
