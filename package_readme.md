@@ -11,7 +11,7 @@ pip install hypercrystal
 For local development:
 
 ```bash
-pip install --editable .
+pip install -e .
 ```
 
 ## Documentation

@@ -20,7 +20,7 @@ pip install hypercrystal
 For local development:
 
 ```bash
-pip install --editable .
+pip install -e .
 ```
 
 ## Quick Start
@@ -40,7 +40,7 @@ Explore the runnable examples under [examples/](examples) (e.g.
 
 ![Library pipeline](media/pipeline.png)
 
-Scenes start by composing native H² [shapes](src/hypercrystal/shapes) (lines, circles, hypercycles,
+Scenes start by composing of native H² [shapes](src/hypercrystal/shapes) (lines, circles, hypercycles,
 polygons, etc.). Before rendering, those shapes are converted into a common
 projectable form: polygons, line segments, and—when using [PointcareModel](src/hypercrystal/projections/pointcare.py)—
 circles. That normalized set feeds into whichever projection model you choose.
@@ -69,6 +69,7 @@ be used to obtain the circle hull of any shape. Look at [culling.py](examples/cu
 ## Contributing
 
 1. Fork and clone the repo.
-2. Install dev dependencies (`pip install -e .` plus whatever extras you need).
-3. Run or add scripts in `examples/` to exercise new features.
-4. Open a pull request with a short description and screenshots if relevant.
+2. Install dev dependencies: Run `pip install -e .` to install the package in editable mode. This allows you to modify the code in `src/hypercrystal/` and see changes immediately without reinstalling. If you need additional development tools (e.g., testing frameworks, linters), install them separately.
+3. Add your features in `src/hypercrystal/` (e.g., new shapes in `src/hypercrystal/shapes/`, new projections in `src/hypercrystal/projections/`, etc.).
+4. Run or add scripts in `examples/` to exercise and test your new features.
+5. Open a pull request with a short description and screenshots if relevant.
