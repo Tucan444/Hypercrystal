@@ -1,0 +1,136 @@
+Maybe add these as separate services?
+Def not in 0.1.0.
+Leave to github contributors hehe xd
+
+
+circle
+
+# intersections
+    def intersect_line(self, line: 'H2Line') -> list[H2Vector]:
+        raise Exception("not a feature")
+
+    def intersect_circle(self, circle: 'H2Circle') -> list[H2Vector]:
+        raise Exception("not a feature")
+
+    def intersect_polygon(self, polygon: H2Polygon) -> list[H2Vector]:
+        raise Exception("not a feature")
+
+    # collision
+    def collide_point(self, point: H2Vector) -> bool:
+        raise Exception("not a feature")
+
+    def collide_line(self, line: 'H2Line') -> bool:
+        raise Exception("not a feature")
+
+    def collide_circle(self, circle: 'H2Circle') -> bool:
+        raise Exception("not a feature")
+
+    def collide_polygon(self, polygon: H2Polygon) -> bool:
+        raise Exception("not a feature")
+
+    # distances
+    def distance_to_point(self, point: H2Vector) -> float:
+        raise Exception("not a feature")
+
+    def distance_to_line(self, line: 'H2Line') -> float:
+        raise Exception("not a feature")
+
+    def distance_to_circle(self, circle: 'H2Circle') -> float:
+        raise Exception("not a feature")
+
+    def distance_to_polygon(self, polygon: H2Polygon) -> float:
+        raise Exception("not a feature")
+
+    # areas
+    def circle_overlap_area(self, circle: 'H2Circle') -> float:
+        raise Exception("not a feature")
+
+    # circle inversion
+    def invert_line(self, line: 'H2Line') -> 'H2Line':
+        raise Exception("not a feature")
+
+    def invert_circle(self, circle: 'H2Circle') -> 'H2Circle':
+        raise Exception("not a feature")
+
+    def invert_polygon(self, polygon: H2Polygon) -> H2Polygon:
+        raise Exception("not a feature")
+
+line
+
+
+    # intersections
+    def _intersect_line(self, line: 'H2Line') -> list[H2Vector]:
+        raise Exception("not a feature")
+
+    def _intersect_circle(self, circle: H2Circle) -> list[H2Vector]:
+        raise Exception("not a feature")
+
+    def _intersect_polygon(self, polygon: H2Polygon) -> list[H2Vector]:
+        raise Exception("not a feature")
+
+    # collisions
+    def _collide_line(self, line: 'H2Line') -> bool:
+        raise Exception("not a feature")
+
+    def _collide_circle(self, circle: H2Circle) -> bool:
+        raise Exception("not a feature")
+
+    def _collide_polygon(self, polygon: H2Polygon) -> bool:
+        raise Exception("not a feature")
+
+    # distances
+    def _distance_to_point(self, point: H2Vector) -> float:
+        raise Exception("not a feature")
+
+    def _distance_to_line(self, line: 'H2Line') -> float:
+        raise Exception("not a feature")
+
+    def _distance_to_circle(self, circle: H2Circle) -> float:
+        raise Exception("not a feature")
+
+    def _distance_to_polygon(self, polygon: H2Polygon) -> float:
+        raise Exception("not a feature")
+
+    # generation
+
+    # limiting parallel
+    # normal line
+    # ultraparallel
+
+polygon
+
+# intersections
+    def _intersect_line(self, line: 'H2Line') -> list[H2Vector]:
+        raise Exception("not a feature")
+
+    def _intersect_circle(self, circle: 'H2Circle') -> list[H2Vector]:
+        raise Exception("not a feature")
+
+    def _intersect_polygon(self, polygon: 'H2Polygon') -> list[H2Vector]:
+        raise Exception("not a feature")
+
+    # collisions
+    def _collide_point(self, point: H2Vector) -> bool:
+        raise Exception("not a feature")
+
+    def _collide_line(self, line: 'H2Line') -> bool:
+        raise Exception("not a feature")
+
+    def _collide_circle(self, circle: 'H2Circle') -> bool:
+        raise Exception("not a feature")
+
+    def _collide_polygon(self, polygon: 'H2Polygon') -> bool:
+        raise Exception("not a feature")
+
+    # distances
+    def _distance_to_point(self, point: H2Vector) -> float:
+        raise Exception("not a feature")
+
+    def _distance_to_line(self, line: 'H2Line') -> float:
+        raise Exception("not a feature")
+
+    def _distance_to_circle(self, circle: 'H2Circle') -> float:
+        raise Exception("not a feature")
+
+    def _distance_to_polygon(self, polygon: 'H2Polygon') -> float:
+        raise Exception("not a feature")
