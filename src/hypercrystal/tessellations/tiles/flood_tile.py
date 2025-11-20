@@ -7,5 +7,3 @@ class FloodTile(TileBase):
     # position is in tesselation space
     def __init__(self, tesselation: TessellationBase, position: H2Vector, rotation: float):
         super().__init__(tesselation, position, rotation)
-
-        self.tiles: list[FloodTile] = []

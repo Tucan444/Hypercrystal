@@ -7,7 +7,7 @@ import pygame
 from pygame import Vector2
 from pygame.locals import *
 
-from hypercrystal import H2Vector
+from hypercrystal import H2Vector, H2Transform
 from hypercrystal.misc.h2_lookup import H2Lookup
 from hypercrystal.projections import *
 from hypercrystal.shapes import H2Line, ProjectedCircle
@@ -38,19 +38,22 @@ projection.cull_range = 5
 
 disc: ProjectedCircle = projection.disc
 
-point_count: int = 1_000
+point_count: int = 2_000
 lookup_detail: int = 5
 subdivide_lines: bool = False
 cull = True
 
 draw_cam_lines = False
 shards = False
+position = H2Vector.FromHyperpolar(0.4, 0)
+mover = H2Transform.StraightToA(position)
 
 lookup: H2Lookup[None] = H2Lookup()
 for _ in range(point_count):
-    lookup[H2Vector.FromHyperpolar(
-        random.uniform(0, math.tau),
-        2**random.uniform(0, 3) - 1)] = None
+    point: H2Vector = H2Vector.FromHyperpolar(
+                            random.uniform(0, math.tau),
+                            2**random.uniform(0, 3.5) - 1)
+    lookup[mover @ point] = None
 
 print(f"Lookup bins count: {lookup.bin_count}")
 

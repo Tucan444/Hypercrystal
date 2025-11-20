@@ -73,3 +73,6 @@ class TileBase:
         points: list[H2Vector] = self.tesselation.origin_polygon.points
         points = self.tile_transform.apply_on_vectors(points)
         return H2Polygon(points)
+
+    def __repr__(self):
+        return f"({self.position.theta}, {self.position.alpha})"

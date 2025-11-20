@@ -31,8 +31,5 @@ __all__ = [
     "notation"
 ]
 
-# todo clean up imports so they work like you would expect
-# todo tessalation
-
 # suggestion shape functions -> (intersections, collisions, distances, generation)
 # suggestion infinite lines

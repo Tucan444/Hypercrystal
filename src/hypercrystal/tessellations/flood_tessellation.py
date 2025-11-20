@@ -96,9 +96,15 @@ class FloodTessellation(TessellationBase):
                 continue
 
             new_tile: FloodTile = FloodTile(self, explorer.position, explorer.rotation + math.pi)
+            new_tile.tiles.append(tile)
+
             self.tiles.append(new_tile)
             self.tile_layers[self.layers].append(new_tile)
             self.tile_lookup.get(new_tile.position, []).append(new_tile)
+            tile.tiles.append(new_tile)
+
+        if second_layer:
+            self.root_tile.tiles = self.root_tile.tiles[-1:] + self.root_tile.tiles[:-1]
 
     def _check_collision_with_tiles(self, position: H2Vector, tiles: list[FloodTile]) -> bool:
         for tile in tiles:
@@ -109,6 +115,7 @@ class FloodTessellation(TessellationBase):
 
     def _check_tile_existence(self, position: H2Vector) -> bool:
         tile_lists_around = self.tile_lookup.around(position, distance=1)
+        #tile_lists_around = [self.tiles]
 
         for tile_list in tile_lists_around:
             if self._check_collision_with_tiles(position, tile_list):

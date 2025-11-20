@@ -36,7 +36,7 @@ projection = PointcareModel(camera, Window_size)
 
 disc: ProjectedCircle = projection.disc
 
-lines_n = 200
+lines_n = 100
 subdivided = True
 lines = [
     H2Line(H2Vector.FromHyperpolar(random.uniform(0, H2Transform.TAU),

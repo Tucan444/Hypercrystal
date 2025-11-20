@@ -127,7 +127,7 @@ class H2Lookup(Generic[K]):
         alphint: int = alpha // self.DOUBLING_CONSTANT
         # alphint: int = 0 if alpha < 1 else\
         #     1 + ((alpha - 1) // self.DOUBLING_CONSTANT)
-        thetint: int = theta // (math.tau / (2 ** alphint))
+        thetint: int = round(theta, 7) // (math.tau / (2 ** alphint))
 
         return thetint, alphint
 

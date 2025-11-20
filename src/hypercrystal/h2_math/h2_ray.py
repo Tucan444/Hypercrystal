@@ -11,10 +11,6 @@ type CASTABLE_SHAPE = H2Line | H2Circle | H2Polygon | H2Ray
 
 
 class H2Ray:
-    @staticmethod
-    def _sign(x: float) -> float:
-        return 1 if x >= 0 else -1
-
     def __init__(self, position: H2Vector, direction: H2Vector):
         self.position: H2Vector = position
         self.direction: H2Vector = direction
@@ -168,3 +164,7 @@ class H2Ray:
             t = min(t, new_t)
 
         return t
+
+    @staticmethod
+    def _sign(x: float) -> float:
+        return 1 if x >= 0 else -1

@@ -35,13 +35,13 @@ projection.cull_range = 4
 
 disc: ProjectedCircle = projection.disc
 
-layers = 8
-p = 4
-q = 5
-position = H2Vector.FromHyperpolar(0, 0)
+layers = 7
+p = 7
+q = 3
+position = H2Vector.FromHyperpolar(0.1, 0.01)
 rotation = -math.tau / 4
-draw_lines = True
-cull = False
+draw_lines = False
+cull = True
 
 # its size increases with tesselation layers, as it's used for optimization of tesselation generation
 # for p=4, q=5 you can see some of them not being used
@@ -49,7 +49,7 @@ visualize_lookup_tesselation = False
 lookup_detail: int = 3
 subdivide_lines: bool = True
 
-fire_colors = True
+coloring: int = 2  # 0-blue, 1-red, 2-green
 draw_cam_lines = False
 
 FloodTessellation.LOG_PROGRESS = True
@@ -81,12 +81,15 @@ for i, polygon in enumerate(polygons):
 for i, line in enumerate(lines):
     line.key = i + polygons[-1].key + 1
 
-if fire_colors:
+if coloring == 0:
     colors = [(random.randint(150, 255), random.randint(100, 200), random.randint(50, 100))
               for _ in range(lines[-1].key + 1)]
-else:
+elif coloring == 1:
     colors = [(random.randint(50, 100), random.randint(150, 255), random.randint(150, 255))
               for _ in range(lines[-1].key + 1)]
+elif coloring == 2:
+    colors = [(random.randint(50, 200), random.randint(150, 255), random.randint(50, 150))
+                  for _ in range(lines[-1].key + 1)]
 
 
 t = time.time()

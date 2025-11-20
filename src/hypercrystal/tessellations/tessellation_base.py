@@ -71,14 +71,7 @@ class TessellationBase:
         return self._inscribed_radius
 
     def _tesselation_validity_check(self) -> bool:
-        if self.p == 0 or self.q == 0:
-            return False
-
-        x: float = (1 / self.p) + (1 / self.q)
-        if x >= 0.5:
-            return False
-
-        return True
+        return max(0, self.p-2) * max(0, self.q-2) > 4
 
     # shapes in world space
     @property
