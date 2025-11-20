@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "Hypercrystal"
-version = "0.0.43"
+version = "0.1.0"
 dependencies = [
   "pygame-ce"
 ]
@@ -26,6 +26,7 @@ classifiers = [
 
 [project.urls]
 Author = "https://www.youtube.com/@tucan7112"
+Github = "https://github.com/Tucan444/Hypercrystal"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/hypercrystal"]

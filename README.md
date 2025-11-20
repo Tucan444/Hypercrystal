@@ -20,6 +20,8 @@ pip install hypercrystal
 For local development:
 
 ```bash
+git clone https://github.com/Tucan444/Hypercrystal.git
+cd Hypercrystal
 pip install -e .
 ```
 
