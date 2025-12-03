@@ -28,7 +28,7 @@ moving = False
 alive = True
 # end of basic config
 
-camera = H2Camera(H2Vector(), H2Vector.FromHyperbolical(0, 1), zoom=0.96)
+camera = H2Camera(H2Vector(), H2Vector.FromHyperbolical(0, 1), zoom=2.5)
 projection = GeneralPerspectiveModel(camera, Window_size, perspective_distance=2)
 projection.cull_range = 4
 
@@ -41,7 +41,7 @@ position = H2Vector.FromHyperpolar(0.1, 0.01)
 rotation = -math.tau / 4
 draw_lines = True
 
-image_index = 1 # 0 - red square, 1 - blue rectangle
+image_index = 0 # 0 - red square, 1 - blue rectangle
 billboard_scale = 0.8
 draw_cam_lines = False
 
