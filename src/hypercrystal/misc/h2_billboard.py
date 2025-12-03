@@ -11,9 +11,11 @@ from pygame import Vector2, Surface
 
 class H2Billboard:
     def __init__(self, center: H2Vector, top_center: H2Vector):
+        self._top_center: H2Vector = None
+        self._right_center: H2Vector = None
+
         self.center: H2Vector = center
         self.top_center: H2Vector = top_center
-        self.right_center: H2Vector = H2Transform.Around(self.center, -H2Transform.HALF_PI) @ self.top_center
 
         self.projected_center: Vector2 = None
         self.projected_top_center: Vector2 = None
@@ -21,6 +23,19 @@ class H2Billboard:
         self.projected_y_size: int = 1
         self.projected_x_size: int = 1
         self.projected_rotation: float = 0
+
+    @property
+    def top_center(self) -> H2Vector:
+        return self._top_center
+
+    @top_center.setter
+    def top_center(self, new_top_center: H2Vector) -> None:
+        self._top_center = new_top_center
+        self._right_center = H2Transform.Around(self.center, -H2Transform.HALF_PI) @ self.top_center
+
+    @property
+    def right_center(self) -> H2Vector:
+        return self._right_center
 
     def update(self, projection: H2Projection) -> None:
         self.projected_center = projection.project(self.center)
