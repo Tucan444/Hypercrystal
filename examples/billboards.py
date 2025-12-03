@@ -29,27 +29,21 @@ moving = False
 alive = True
 # end of basic config
 
-camera = H2Camera(H2Vector(), H2Vector.FromHyperbolical(0, 1), zoom=0.95)
-projection = GeneralPerspectiveModel(camera, Window_size, perspective_distance=1)
+camera = H2Camera(H2Vector(), H2Vector.FromHyperbolical(0, 1), zoom=0.96)
+projection = GeneralPerspectiveModel(camera, Window_size, perspective_distance=2)
 projection.cull_range = 4
 
 disc: ProjectedCircle = projection.disc
 
 layers = 6
-p = 7
-q = 3
+p = 4
+q = 5
 position = H2Vector.FromHyperpolar(0.1, 0.01)
 rotation = -math.tau / 4
-draw_lines = False
-cull = True
+draw_lines = True
 
-# its size increases with tesselation layers, as it's used for optimization of tesselation generation
-# for p=4, q=5 you can see some of them not being used
-visualize_lookup_tesselation = False
-lookup_detail: int = 3
-subdivide_lines: bool = True
-
-coloring: int = 2  # 0-red, 1-blue, 2-green
+image_index = 1 # 0 - red square, 1 - blue rectangle
+billboard_scale = 0.8
 draw_cam_lines = False
 
 FloodTessellation.LOG_PROGRESS = True
@@ -57,39 +51,20 @@ tesselation = FloodTessellation(p, q, position, rotation, layers)
 print(f"Tile count: {tesselation.tile_count}")
 print(f"Lookup bins count: {tesselation.tile_lookup.bin_count}")
 
-tilegons = tesselation.tile_polygons
-cull_circles = tesselation.tile_circles
-
-#circlegons = [c.approximate(30) for c in tesselation.tile_circles]
-#inscribed_circlegons = [c.approximate(30) for c in tesselation.tile_inscribed_circles]
 lines = tesselation.tile_forward_lines
 
-polygons = tilegons
-#polygons += circlegons
-#polygons += inscribed_circlegons
+rays = [
+    H2Ray(line.a, line.b) for line in lines
+]
 
-if visualize_lookup_tesselation:
-    lookup_gons = tesselation.tile_lookup.get_polygons(lookup_detail, subdivide_lines)
-    polygons = lookup_gons
-    cull_circles = list(map(lambda x: x.circle_hull, lookup_gons))
-    #polygons = list(map(lambda c: c.approximate(10), cull_circles))
+billboards = [
+    H2Billboard(ray.position, ray.sample(tesselation.inscribed_radius*billboard_scale)) for ray in rays
+]
 
-for i, polygon in enumerate(polygons):
-    polygon.key = i
-    cull_circles[i].key = i
-
-for i, line in enumerate(lines):
-    line.key = i + polygons[-1].key + 1
-
-if coloring == 0:
-    colors = [(random.randint(150, 255), random.randint(100, 200), random.randint(50, 100))
-              for _ in range(lines[-1].key + 1)]
-elif coloring == 1:
-    colors = [(random.randint(50, 100), random.randint(150, 255), random.randint(150, 255))
-              for _ in range(lines[-1].key + 1)]
-elif coloring == 2:
-    colors = [(random.randint(50, 200), random.randint(150, 255), random.randint(50, 150))
-                  for _ in range(lines[-1].key + 1)]
+images = [
+    pygame.image.load("../media/example_assets/sandclock.png").convert(),
+    pygame.image.load("../media/example_assets/waterstar.png").convert()
+]
 
 
 t = time.time()
@@ -102,22 +77,15 @@ while alive:
 
     projection.update()
 
-    if cull:
-        projected_polygons = projection.cull_and_project_polygons(polygons, cull_circles)
-    else:
-        projected_polygons = projection.project_polygons(polygons)
+    for billboard in billboards:
+        billboard.update(projection)
+        billboard.blit(images[image_index], display)
 
-    for tile in projected_polygons:
-        pygame.draw.polygon(display, colors[tile.key], tile.points)
-
-    if draw_lines and not visualize_lookup_tesselation:
-        if cull:
-            projected_lines = projection.cull_and_project_lines(lines, cull_circles)
-        else:
-            projected_lines = projection.project_lines(lines)
+    if draw_lines:
+        projected_lines = projection.project_lines(lines)
 
         for line in projected_lines:
-            pygame.draw.line(display, colors[line.key], line.a, line.b, 2)
+            pygame.draw.line(display, (255, 255, 70), line.a, line.b, 2)
 
     if draw_cam_lines:
         cam_lines = [H2Line(camera.position, camera.up), H2Line(camera.position, camera.right)]

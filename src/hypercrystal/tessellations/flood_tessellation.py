@@ -65,7 +65,7 @@ class FloodTessellation(TessellationBase):
         self._layers += 1
 
         if self.LOG_PROGRESS:
-            print(f"FloodTesselation - layer {self.layers} done")
+            print(f"FloodTesselation [{self.p}, {self.q}] - layer {self.layers} done")
 
     def _create_root(self) -> None:
         self._root_tile = FloodTile(self, H2Vector(), 0)

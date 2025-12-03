@@ -25,8 +25,7 @@ class TileBase:
 
     @property
     def forward_line(self) -> H2Line:
-        return H2Line(self.tesselation.model_transform @ self.position,
-                      self.tesselation.model_transform @ self.forward)
+        return H2Line(self.world_position, self.world_forward)
 
     @property
     def rotation(self) -> float:
@@ -35,6 +34,10 @@ class TileBase:
     @property
     def world_position(self) -> H2Vector:
         return self.tesselation.model_transform @ self.position
+
+    @property
+    def world_forward(self) -> H2Vector:
+        return self.tesselation.model_transform @ self.forward
 
     @property
     def tile_transform(self) -> H2Transform:

@@ -70,8 +70,12 @@ class TessellationBase:
     def inscribed_radius(self) -> float:
         return self._inscribed_radius
 
+    @classmethod
+    def check_validity(cls, p: int, q: int) -> bool:
+        return max(0, p-2) * max(0, q-2) > 4
+
     def _tesselation_validity_check(self) -> bool:
-        return max(0, self.p-2) * max(0, self.q-2) > 4
+        return TessellationBase.check_validity(self.p, self.q)
 
     # shapes in world space
     @property
