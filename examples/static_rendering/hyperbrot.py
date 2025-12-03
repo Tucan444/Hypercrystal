@@ -11,7 +11,7 @@ from hypercrystal import *
 
 # end of basic config
 image_size = (1920, 1080)
-filename = "ultrabrot.png"
+filename = "hyperbrot.png"
 img = pygame.Surface(image_size)
 
 bg_color = (0, 0, 0)
@@ -19,10 +19,10 @@ space_color = (20, 20, 20)
 fractal_color = (255, 0, 70)
 undecided_color = (255, 0, 75)
 iterations = 60
-power = 4
+power = 2
 
-camera = H2Camera(H2Vector(), H2Vector.FromHyperbolical(0, 1), zoom=2**-0.3)
-camera.move_left(0)
+camera = H2Camera(H2Vector(), H2Vector.FromHyperbolical(0, 1), zoom=2**-0.1)
+camera.move_left(0.5)
 
 projection = HyperpolarModel(camera, image_size)
 disc: ProjectedCircle = projection.disc

@@ -146,11 +146,25 @@ For visualization and debugging, `H2Lookup` can convert bins back into geometry.
 
 If you need more control, helpers like `vector_to_hash_code`, `hash_code_to_vector`, and the directional hash operators let you traverse or manipulate the tree manually.
 
+## Other
+
+| {3, N} wireframes                           | Billboards                                | Hyperbrot Set                               |
+|---------------------------------------------|-------------------------------------------|---------------------------------------------------------|
+| ![mini tower](media/other/3-mini_tower.png) | ![Billboards](media/other/billboards.png) | ![Hyperbolic Mandelbrot Set](media/other/hyperbrot.png) |
+
+The [examples/static_rendering](examples/static_rendering) directory provides scripts for generating high-resolution static images, including tessellation renders, overlapping tessellation wireframes, and the hyperbolic Mandelbrot fractal.
+
+[`H2Billboard`](src/hypercrystal/misc/h2_billboard.py) provides approximate surface placement in hyperbolic space—useful for texturing or adding visual elements that don't require precise geometric positioning.
+
+The [Hyperbrot Set](examples/static_rendering/hyperbrot.py) resembles the classic Mandelbrot set, but with a key difference: finer details are stretched from circles into different shapes due to the hyperbolic metric. This distortion becomes increasingly apparent when zooming into the center-left region, where the hyperbolic geometry's non-Euclidean nature manifests most clearly.
+
+<small>*for hyperbrot set multiplication was defined in hyperpolar coordinates the same way it is defined with complex numbers in polar coordinates; addition was defined as a transformation that moves the origin in a straight line to the point we're adding.</small>
+
 ## Directory Overview
 
 - [src/hypercrystal/](src/hypercrystal)
   - [h2_math/](src/hypercrystal/h2_math): Hyperbolic vectors, transforms, rays, helper functions.
-  - [misc/](src/hypercrystal/misc): Cameras, walkers, lookup utilities used by projections and demos.
+  - [misc/](src/hypercrystal/misc): Cameras, walkers, billboards, lookup utilities used by projections and demos.
   - [projections/](src/hypercrystal/projections): Models that map H² entities into drawable Euclidean scenes.
   - [shapes/](src/hypercrystal/shapes): Core geometry (lines, circles, polygons, horocycles, etc.).
   - [tessellations/](src/hypercrystal/tessellations): Tile generation and traversal helpers.
