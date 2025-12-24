@@ -9,7 +9,7 @@ from pygame.locals import *
 
 from hypercrystal import *
 
-# end of basic config, this one was heavily assisted by AI, others are all mostly handwritten
+# this one was heavily assisted by AI, other scripts are mostly handwritten
 image_size = (1280, 720)
 filename = "newton2.png"
 img = pygame.Surface(image_size)
@@ -18,7 +18,7 @@ bg_color = (0, 0, 0)
 space_color = (20, 20, 20)
 fractal_color = (255, 0, 70)
 undecided_color = (255, 0, 75)
-iterations = 25
+iterations = 20
 
 root1 = Vector2(0, 0.6)
 root2 = Vector2(math.tau * (5/12), 0.6)
@@ -188,8 +188,6 @@ else:
     img.fill(space_color)
 
 for y in range(image_size[1]):
-    t = time.time()
-
     for x in range(image_size[0]):
         position: H2Vector = projection.reproject(Vector2(x, y))
 
@@ -224,6 +222,18 @@ for y in range(image_size[1]):
         img.set_at((x, y), pixel_color)
 
 
-    print(f"row {y+1}/{image_size[1]} done, {time.time() - t}s")
+    print(f"row {y+1}/{image_size[1]} done")
+
+
+r = image_size[1] // 100
+r_black = r + 2
+
+pygame.draw.circle(img, shadow_color, r1_proj, r_black)
+pygame.draw.circle(img, shadow_color, r2_proj, r_black)
+pygame.draw.circle(img, shadow_color, r3_proj, r_black)
+
+pygame.draw.circle(img, colors1[0], r1_proj, r)
+pygame.draw.circle(img, colors2[0], r2_proj, r)
+pygame.draw.circle(img, colors3[0], r3_proj, r)
 
 pygame.image.save(img, f"rendered/{filename}")
