@@ -50,7 +50,7 @@ class Horocycle:
             for i in range(samples)
         ]
 
-        return H2Polygon(points, self.key, is_line=True)
+        return H2Polygon(points, self.key, is_spline=True)
 
     @property
     def circle_hull(self) -> H2Circle:

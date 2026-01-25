@@ -56,7 +56,7 @@ class H2Arc:
         for _ in range(samples-1):
             points.append(rotor.apply_on_vector(points[-1]))
 
-        return H2Polygon(points, self.key, is_line=True)
+        return H2Polygon(points, self.key, is_spline=True)
 
     @property
     def circle_hull(self) -> H2Circle:

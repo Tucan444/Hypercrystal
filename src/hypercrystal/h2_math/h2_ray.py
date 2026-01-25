@@ -1,4 +1,5 @@
 from .h2_transform import H2Transform
+from .h2_transform import H2Transform
 from .h2_vector import H2Vector
 from ..notation import H2RayHit
 from ..shapes.line import H2Line
@@ -148,7 +149,7 @@ class H2Ray:
         t: H2RayHit = None
 
         segments_n: int = len(polygon.points)
-        if polygon.is_line:
+        if polygon.is_spline:
             segments_n -= 1
 
         for i in range(segments_n):

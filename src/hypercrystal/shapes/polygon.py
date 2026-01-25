@@ -2,10 +2,10 @@ from ..h2_math.h2_vector import H2Vector
 from ..h2_math.h2_transform import H2Transform
 
 class H2Polygon:
-    def __init__(self, points: list[H2Vector], key=None, is_line: bool=False) -> None:
+    def __init__(self, points: list[H2Vector], key=None, is_spline: bool=False) -> None:
         self.points: list[H2Vector] = points
         self.key = key
-        self.is_line: bool=is_line
+        self.is_spline: bool=is_spline
 
     @property
     def circle_hull(self) -> 'H2Circle':
@@ -18,7 +18,7 @@ class H2Polygon:
         points: list[H2Vector] = []
 
         iter_amount: int = len(self.points)
-        if self.is_line:
+        if self.is_spline:
             iter_amount -= 1
 
         for i in range(iter_amount):
@@ -31,7 +31,7 @@ class H2Polygon:
                 points.append(
                     rotor @ points[-1])
 
-        if self.is_line:
+        if self.is_spline:
             points.append(self.points[-1].clone)
 
-        return H2Polygon(points, self.key, self.is_line)
+        return H2Polygon(points, self.key, self.is_spline)

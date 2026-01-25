@@ -73,7 +73,7 @@ class H2Projection:
 
     def project_polygons(self, polygons: list[H2Polygon]) -> list[ProjectedPolygon]:
         return list(map(lambda x: ProjectedPolygon(
-            self.project_points(x.points), x.key
+            self.project_points(x.points), x.key, x.is_spline
         ), polygons))
 
     def cull_and_project_circles(self, circles: list[H2Circle]) -> list[ProjectedCircle]:

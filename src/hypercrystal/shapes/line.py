@@ -23,7 +23,7 @@ class H2Line:
         for _ in range(samples-1):
             points.append(movement.apply_on_vector(points[-1]))
 
-        return H2Polygon(points, self.key, is_line=True)
+        return H2Polygon(points, self.key, is_spline=True)
 
     def sample(self, t: float) -> H2Vector:
         transform: H2Transform = H2Transform.LerpAB(self.a, self.b, t)

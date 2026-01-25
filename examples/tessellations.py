@@ -30,14 +30,14 @@ alive = True
 # end of basic config
 
 camera = H2Camera(H2Vector(), H2Vector.FromHyperbolical(0, 1), zoom=0.95)
-projection = GeneralPerspectiveModel(camera, Window_size, perspective_distance=1)
+projection = GeneralPerspectiveModel(camera, Window_size, perspective_distance=2)
 projection.cull_range = 4
 
 disc: ProjectedCircle = projection.disc
 
-layers = 6
-p = 7
-q = 3
+layers = 8
+p = 4
+q = 5
 position = H2Vector.FromHyperpolar(0.1, 0.01)
 rotation = -math.tau / 4
 draw_lines = False

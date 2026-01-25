@@ -47,7 +47,7 @@ polygon = H2Polygon([
 )
 polygon = polygon.subdivide(subdivision_samples)
 
-polyline = H2Polygon(polygon.points.copy(), is_line=True)
+polyline = H2Polygon(polygon.points.copy(), is_spline=True)
 polyline = polyline.subdivide(subdivision_samples)
 
 arcs_n = 10

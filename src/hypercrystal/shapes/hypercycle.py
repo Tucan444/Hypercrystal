@@ -44,7 +44,7 @@ class Hypercycle:
 
         points = list(map(transform.apply_on_vector, points))
 
-        return H2Polygon(points, self.key, is_line=True)
+        return H2Polygon(points, self.key, is_spline=True)
 
     def sample(self, t: float) -> H2Vector:
         transform: H2Transform = H2Transform.LineToXZ(self.start_on_line, self.end_on_line).inverse

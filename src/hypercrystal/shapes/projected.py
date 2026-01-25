@@ -14,6 +14,7 @@ class ProjectedLine:
         self.key = key
 
 class ProjectedPolygon:
-    def __init__(self, points: list[Vector2], key=None) -> None:
+    def __init__(self, points: list[Vector2], key=None, is_spline:bool=False) -> None:
         self.points: list[Vector2] = points
         self.key = key
+        self.is_spline: bool = is_spline

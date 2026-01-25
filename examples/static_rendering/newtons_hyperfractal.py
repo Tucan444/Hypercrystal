@@ -10,15 +10,15 @@ from pygame.locals import *
 from hypercrystal import *
 
 # this one was heavily assisted by AI, other scripts are mostly handwritten
-image_size = (1280, 720)
-filename = "newton2.png"
+image_size = (1920, 1080)
+filename = "newton3.png"
 img = pygame.Surface(image_size)
 
 bg_color = (0, 0, 0)
 space_color = (20, 20, 20)
 fractal_color = (255, 0, 70)
 undecided_color = (255, 0, 75)
-iterations = 20
+iterations = 25
 
 root1 = Vector2(0, 0.6)
 root2 = Vector2(math.tau * (5/12), 0.6)
@@ -40,10 +40,6 @@ r1=root1; r2=root2; r3=root3
 r1_vec = H2Vector.FromHyperpolar(*r1)
 r2_vec = H2Vector.FromHyperpolar(*r2)
 r3_vec = H2Vector.FromHyperpolar(*r3)
-
-r1_proj = projection.project(r1_vec)
-r2_proj = projection.project(r2_vec)
-r3_proj = projection.project(r3_vec)
 
 C = Vector2(r1.x + r2.x + r3.x, r1.y * r2.y * r3.y)
 C_subtractor = H2Transform.StraightToOrigin(H2Vector.FromHyperpolar(*C))
@@ -172,6 +168,39 @@ def classify(x: H2Vector) -> int:
     else:
         return 2
 
+def get_fractal_color(x: int, y: int) -> tuple[int, int, int] | None:
+    position: H2Vector = projection.reproject(Vector2(x, y))
+    
+    if position is None:
+        return None
+    
+    z = Vector2(*position.hyperpolar)
+    
+    # Track classification streak
+    current_index = None
+    streak = 0
+    
+    for i in range(iterations):
+        z = step(z)
+        
+        # Classify at each step
+        z_vec = H2Vector.FromHyperpolar(*z)
+        root_index = classify(z_vec)
+        
+        # Update streak
+        if current_index == root_index:
+            streak += 1
+        else:
+            current_index = root_index
+            streak = 1
+    
+    # Use the colors array based on final index, with streak as the index
+    colors_array = [colors1, colors2, colors3][current_index]
+    streak_index = min(streak - 1, len(colors_array) - 1)
+    pixel_color = colors_array[streak_index]
+    
+    return pixel_color
+
 
 colors1 = [(random.randint(150, 255), random.randint(100, 200), random.randint(50, 100))
           for _ in range(iterations)]
@@ -188,52 +217,32 @@ else:
     img.fill(space_color)
 
 for y in range(image_size[1]):
+    t = time.time()
+
     for x in range(image_size[0]):
-        position: H2Vector = projection.reproject(Vector2(x, y))
-
-        if position is None:
+        pixel_color = get_fractal_color(x, y)
+        
+        if pixel_color is None:
             continue
-
-        z = Vector2(*position.hyperpolar)
-
-        # Track classification streak
-        current_index = None
-        streak = 0
-        
-        for i in range(iterations):
-            z = step(z)
-            
-            # Classify at each step
-            z_vec = H2Vector.FromHyperpolar(*z)
-            root_index = classify(z_vec)
-
-            # Update streak
-            if current_index == root_index:
-                streak += 1
-            else:
-                current_index = root_index
-                streak = 1
-        
-        # Use the colors array based on final index, with streak as the index
-        colors_array = [colors1, colors2, colors3][current_index]
-        streak_index = min(streak - 1, len(colors_array) - 1)
-        pixel_color = colors_array[streak_index]
         
         img.set_at((x, y), pixel_color)
 
 
-    print(f"row {y+1}/{image_size[1]} done")
+    print(f"row {y+1}/{image_size[1]} done, {image_size}, {time.time() - t}s")
 
-
-r = image_size[1] // 100
-r_black = r + 2
-
-pygame.draw.circle(img, shadow_color, r1_proj, r_black)
-pygame.draw.circle(img, shadow_color, r2_proj, r_black)
-pygame.draw.circle(img, shadow_color, r3_proj, r_black)
-
-pygame.draw.circle(img, colors1[0], r1_proj, r)
-pygame.draw.circle(img, colors2[0], r2_proj, r)
-pygame.draw.circle(img, colors3[0], r3_proj, r)
+# r = img.height // 100
+# r_black = r + 2
+#
+# r1_proj = projection.project(r1_vec)
+# r2_proj = projection.project(r2_vec)
+# r3_proj = projection.project(r3_vec)
+#
+# pygame.draw.circle(img, shadow_color, r1_proj, r_black)
+# pygame.draw.circle(img, shadow_color, r2_proj, r_black)
+# pygame.draw.circle(img, shadow_color, r3_proj, r_black)
+#
+# pygame.draw.circle(img, colors1[0], r1_proj, r)
+# pygame.draw.circle(img, colors2[0], r2_proj, r)
+# pygame.draw.circle(img, colors3[0], r3_proj, r)
 
 pygame.image.save(img, f"rendered/{filename}")
