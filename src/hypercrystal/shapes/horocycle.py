@@ -1,5 +1,6 @@
 from .circle import H2Circle
 from .polygon import H2Polygon
+from .line import H2Line
 from ..h2_math.h2_vector import H2Vector
 from ..h2_math.h2_transform import H2Transform
 
@@ -38,7 +39,9 @@ class Horocycle:
 
     @property
     def _unit_model_transform(self) -> H2Transform:
-        return H2Transform.Anchor(self.anchor, self.angle_to_horizon)
+        limiting_line: H2Line = H2Line.LimitingToHorizon(self.angle_to_horizon, self.anchor)
+        return H2Transform.XYToLine(limiting_line.a, limiting_line.b)
+        #return H2Transform.Anchor(self.anchor, self.angle_to_horizon)
 
     def approximate(self, samples: int=10) -> H2Polygon:
         assert samples >= 2

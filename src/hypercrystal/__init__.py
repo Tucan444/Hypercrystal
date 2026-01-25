@@ -33,4 +33,3 @@ __all__ = [
 
 # suggestion shape functions -> (intersections, collisions, distances, generation)
 # suggestion infinite lines
-# suggestion fix horocycles

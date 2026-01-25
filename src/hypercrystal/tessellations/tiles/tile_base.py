@@ -9,7 +9,7 @@ from ..tessellation_base import TessellationBase
 class TileBase:
     # position, forward is in tesselation space
     def __init__(self, tesselation: TessellationBase, position: H2Vector, rotation: float):
-        self.tesselation: TesselationBase = tesselation
+        self.tesselation: TessellationBase = tesselation
         self.tiles: list[TileBase] = []
 
         self._position: H2Vector = position

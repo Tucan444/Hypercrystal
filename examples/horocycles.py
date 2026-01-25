@@ -37,10 +37,16 @@ projection = GeneralPerspectiveModel(camera, Window_size, perspective_distance=1
 disc: ProjectedCircle = projection.disc
 
 horocycles_n = 20
+sync_horizon_and_sample = False
+
 alpha = random.uniform(0, math.tau)
+beta = random.uniform(0, math.tau)
+if sync_horizon_and_sample:
+    beta = alpha
+
 horocycles_raw = [
     Horocycle(alpha, H2Vector.FromHyperpolar(
-        alpha,
+        beta,
         random.uniform(-4, 4)
     ), (-5, 5), i)
     for i in range(horocycles_n)

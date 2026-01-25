@@ -93,6 +93,14 @@ class H2Transform(Matrix3D):
         return transform.before(cls.Plane("zy", b_.theta - cls.HALF_PI))
 
     @classmethod
+    def XYToLine(cls, a: H2Vector, b: H2Vector) -> 'H2Transform':
+        return cls.LineToXY(a, b).inverse
+
+    @classmethod
+    def XZToLine(cls, a: H2Vector, b: H2Vector) -> 'H2Transform':
+        return cls.LineToXZ(a, b).inverse
+
+    @classmethod
     def AtoB(cls, a: H2Vector, b: H2Vector, angle: float) -> 'H2Transform':
         transform: H2Transform = cls.LineToXY(a, b)
         movement: H2Transform = cls.Plane("xy", angle)

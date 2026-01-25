@@ -1,3 +1,7 @@
+import math
+
+from pygame import Vector2
+
 from .polygon import H2Polygon
 from ..h2_math.h2_vector import H2Vector
 from ..h2_math.h2_transform import H2Transform
@@ -8,6 +12,16 @@ class H2Line:
         self.a: H2Vector = a
         self.b: H2Vector = b
         self.key = key
+
+    @classmethod
+    def LimitingToHorizon(cls, angle_to_horizon: float, a: H2Vector) -> 'H2Line':
+        a_klein: Vector2 = Vector2(a.y/a.x, a.z/a.x)
+        horizon_point: Vector2 = Vector2(math.cos(angle_to_horizon), math.sin(angle_to_horizon))
+
+        b_klein: Vector2 = a_klein.lerp(horizon_point, 0.05)
+        b: H2Vector = H2Vector(1, b_klein.x, b_klein.y).normalized
+
+        return H2Line(a.clone, b)
 
     @property
     def length(self) -> float:
