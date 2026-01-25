@@ -74,7 +74,7 @@ The optional `key` travels through projection and internal methods so you can id
 
 - [`H2Line(a: H2Vector, b: H2Vector, key=None)`](src/hypercrystal/shapes/line.py) — straight geodesics, they stay straight under the Klein model, so lines never need to be approximated there.
 
-- [`H2Polygon(points: list[H2Vector], key=None, is_line: bool=False)`](src/hypercrystal/shapes/polygon.py) — a flexible wrapper used for both closed loops and open segments. When `is_line=True`, downstream consumers (like [`H2Ray`](src/hypercrystal/h2_math/h2_ray.py) or [`H2Polygon.subdivide`](src/hypercrystal/shapes/polygon.py)) treat it as a non-looping linear curve.
+- [`H2Polygon(points: list[H2Vector], key=None, is_spline: bool=False)`](src/hypercrystal/shapes/polygon.py) — a flexible wrapper used for both closed loops and open segments. When `is_spline=True`, downstream consumers (like [`H2Ray`](src/hypercrystal/h2_math/h2_ray.py) or [`H2Polygon.subdivide`](src/hypercrystal/shapes/polygon.py)) treat it as a non-looping linear curve.
 
 - [`H2Arc(center: H2Vector, anchor: H2Vector, length: float, key=None)`](src/hypercrystal/shapes/arc.py) — circle arcs measured by angle `length`. Positive `length` advances in the clockwise direction defined by the internal [`is_clockwise(...)`](src/hypercrystal/h2_math/high_functions.py) helper, which orients Y/Z consistently. The [`ThreePoint`](src/hypercrystal/shapes/arc.py) constructor infers direction from three sampled points.
 
