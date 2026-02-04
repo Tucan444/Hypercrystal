@@ -93,9 +93,9 @@ line
 
     # generation
 
-    # limiting parallel
-    # normal line
+    # normal line [what is normal line???]
     # ultraparallel
+    # tangent line
 
 polygon
 
