@@ -2,6 +2,7 @@ from ..h2_math.h2_transform import H2Transform
 from ..h2_math.h2_vector import H2Vector
 from ..shapes.circle import H2Circle
 from ..shapes.line import H2Line
+from .collisions import Collisions
 
 Measurable = H2Line | H2Circle | H2Vector
 
@@ -23,7 +24,7 @@ class Distances:
             elif type(b) == H2Line:
                 raise TypeError(f"LineLine distance not supported")
             elif type(b) == H2Circle:
-                raise TypeError(f"LineCircle distance not supported")
+                return cls.LineCircle(a, b)
             else:
                 raise TypeError(f"invalid type of b: {type(b)}")
 
@@ -31,7 +32,7 @@ class Distances:
             if type(b) == H2Vector:
                 return cls.PointCircle(b, a)
             elif type(b) == H2Line:
-                raise TypeError(f"LineCircle distance not supported")
+                return cls.LineCircle(b, a)
             elif type(b) == H2Circle:
                 return cls.CircleCircle(a, b)
             else:
@@ -60,6 +61,10 @@ class Distances:
     @classmethod
     def PointCircle(cls, a: H2Vector, b: H2Circle) -> float:
         return a.distance_to(b.center) - b.radius
+
+    @classmethod
+    def LineCircle(cls, a: H2Line, b: H2Circle) -> float:
+        return cls.PointLine(b.center, a) - b.radius
 
     @classmethod
     def CircleCircle(cls, a: H2Circle, b: H2Circle) -> float:
