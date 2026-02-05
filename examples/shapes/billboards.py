@@ -61,8 +61,8 @@ billboards = [
 ]
 
 images = [
-    pygame.image.load("../media/example_assets/sandclock.png").convert(),
-    pygame.image.load("../media/example_assets/waterstar.png").convert()
+    pygame.image.load("../../media/example_assets/sandclock.png").convert(),
+    pygame.image.load("../../media/example_assets/waterstar.png").convert()
 ]
 
 

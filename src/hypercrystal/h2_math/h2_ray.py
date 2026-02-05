@@ -16,6 +16,13 @@ class H2Ray:
         self.position: H2Vector = position
         self.direction: H2Vector = direction
 
+    @classmethod
+    def FromLine(cls, line: H2Line, AB: bool=True) -> 'H2Ray':
+        if AB:
+            return H2Ray(line.a, line.b)
+        else:
+            return H2Ray(line.b, line.a)
+
     def sample(self, d: float) -> H2Vector:
         return H2Transform.AtoB(self.position, self.direction, d) @ self.position
 

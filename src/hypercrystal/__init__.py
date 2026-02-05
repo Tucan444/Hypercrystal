@@ -12,6 +12,7 @@ from .tessellations import *
 from .projections import *
 
 from .misc import __all__ as _misc_all
+from .operators import __all__ as _operators_all
 from .h2_math import __all__ as _math_all
 from .shapes import __all__ as _shapes_all
 from .tessellations import __all__ as _tessellation_all
@@ -25,11 +26,12 @@ __all__ = [
     "projections",
     *_math_all,
     *_misc_all,
+    *_operators_all,
     *_shapes_all,
     *_tessellation_all,
     *_projections_all,
     "notation"
 ]
 
-# suggestion shape functions -> (intersections, collisions, distances, generation)
 # todo explain coordinates in readme
+# todo explain operators in readme
