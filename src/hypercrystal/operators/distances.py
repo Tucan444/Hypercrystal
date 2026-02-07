@@ -2,7 +2,6 @@ from ..h2_math.h2_transform import H2Transform
 from ..h2_math.h2_vector import H2Vector
 from ..shapes.circle import H2Circle
 from ..shapes.line import H2Line
-from .collisions import Collisions
 
 Measurable = H2Line | H2Circle | H2Vector
 

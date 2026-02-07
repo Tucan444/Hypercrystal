@@ -56,20 +56,12 @@ class Intersections:
             return intersections
 
         intersections.append(result_AB)
-
-        ray = H2Ray.FromLine(a, False)
-        result_BA: H2Vector = cls._LineLineSingleDirection(a, b, ray)
-        if result_BA is None:
-            return intersections
-
-        if result_AB.distance_to(result_BA) == 0:
-            return intersections
-
-        intersections.append(result_BA)
         return intersections
 
     @classmethod
     def LineCircle(cls, a: H2Line, b: H2Circle) -> H2Intersection:
+        # god dont look at this function for I have sinned
+        # optimizable extract both distances from math, dont cast twice
         ray: H2Ray = H2Ray.FromLine(a, True)
         intersections: H2Intersection = []
 

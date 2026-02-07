@@ -38,7 +38,7 @@ disc: ProjectedCircle = projection.disc
 
 subdivision_samples: int = 5
 lines_n = 10
-circles_n = 3
+circles_n = 4
 
 polygon = H2Polygon([
     H2Vector.FromHyperpolar(0, 0.8),
@@ -119,8 +119,8 @@ while alive:
     projection.update()
 
     projected_circles = projection.project_polygons(circles)
-    for circle in projected_circles:
-        pygame.draw.polygon(display, (160, 100, 80), circle.points)
+    for i, circle in enumerate(projected_circles):
+        pygame.draw.polygon(display, (160, (114*i) % 255, 80), circle.points)
 
     lines_projected = projection.project_polygons(lines)
     for line in lines_projected:
