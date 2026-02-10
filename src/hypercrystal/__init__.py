@@ -32,6 +32,3 @@ __all__ = [
     *_projections_all,
     "notation"
 ]
-
-# todo explain coordinates in readme
-# todo explain operators in readme

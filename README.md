@@ -146,6 +146,38 @@ For visualization and debugging, `H2Lookup` can convert bins back into geometry.
 
 If you need more control, helpers like `vector_to_hash_code`, `hash_code_to_vector`, and the directional hash operators let you traverse or manipulate the tree manually.
 
+## Lines
+
+| Tangent Lines | Ultraparallel Lines | Limiting Parallels |
+| --- | --- | --- |
+| ![Tangent Lines](media/lines/tangent_lines.png) | ![Ultraparallel Lines](media/lines/ultraparallel_lines.png) | ![Limiting Parallels](media/lines/limiting_parallels.png) |
+
+The negative curvature of hyperbolic space allows for a much richer variety of lines than 2D Euclidean space (E²). In E², lines are simply intersecting, parallel, or identical. In H², we have:
+
+- **Intersecting Lines**: There are infinite lines passing through a single point that intersect a given line.
+- **Tangent Lines**: Like in Euclidean space, for each point on a line there is one tangent line. However, in hyperbolic space, tangent lines diverge significantly over distance rather than staying close.
+- **Ultraparallel Lines**: While Euclidean lines have one parallel, H² lines have infinite. They can be ordered: for every point $x$ on a line, there is a specific *ultraparallel line at $x$*, which is perpendicular to the normal at that point.
+- **Limiting Parallels**: Often called "parallels at infinity". For any line and a point off it, there are exactly two limiting parallel lines through that point (one in each direction). In practice, they appear to approach the original line asymptotically without ever intersecting.
+
+> **Note on Pursuit**: Because lines diverge so aggressively in hyperbolic space, you cannot efficiently pursue a target with more than one chaser. All other pursuers will be forced into trajectories resembling limiting parallels, making encirclement geometrically difficult.
+
+Functionality to generate different types of lines can be found in **[H2Line](src/hypercrystal/shapes/line.py)**.
+
+## Utilities
+
+| Intersections | Raycasting |
+| --- | --- |
+| ![Intersections](media/utilities/intersections.png) | ![Raycasting](media/utilities/raycasting.png) |
+
+1. **[Operators](src/hypercrystal/operators)** — static helper classes for calculating [intersections](src/hypercrystal/operators/intersections.py), [collisions](src/hypercrystal/operators/collisions.py), and [distances](src/hypercrystal/operators/distances.py). These are functional collections and should not be instantiated.
+2. **[H2Ray](src/hypercrystal/h2_math/h2_ray.py)** — implements raycasting logic. Finding the intersection of two rays is called a "duel" and can be performed using the `@` operator: `ray1 @ ray2`.
+3. **[H2Vector](src/hypercrystal/h2_math/h2_vector.py)** and **[H2Transform](src/hypercrystal/h2_math/h2_transform.py)** — the mathematical backbone of the library. `H2Vector` supports three coordinate systems:
+    - **Hyperboloid model**: `(x, y, z)` satisfying x² - y² - z² = 1. This is the internal representation; other forms are converted on demand.
+    - **Hyperpolar coordinates**: `(theta, alpha)`, where `theta` is the direction and `alpha` is the distance from the origin (similar to polar coordinates).
+    - **Hyperbolical coordinates**: `(gamma, beta)`. A system based on orthogonal hyperbolic rotations. `gamma` represents the hyperbolic rotation in the XY plane, and `beta` represents the rotation in the XZ plane. Geometrically, imagine an infinite line on the hyperboloid intersecting the XZ plane: first move `gamma` distance along the line normal, then transport this parallel line `beta` units along the XZ plane.
+4. **[Low](src/hypercrystal/h2_math/low_functions.py)+[High](src/hypercrystal/h2_math/high_functions.py) functions** — a collection of low-level and high-level utility functions used throughout the codebase.
+5.  **[H2Walker](src/hypercrystal/misc/h2_walker.py)** — a simple helper for navigating through hyperbolic space with position and forward direction.
+
 ## Other
 
 | {3, N} wireframes                           | Billboards                                | Hyperbrot Set                               |
@@ -165,6 +197,7 @@ The [Hyperbrot Set](examples/static_rendering/hyperbrot.py) resembles the classi
 - [src/hypercrystal/](src/hypercrystal)
   - [h2_math/](src/hypercrystal/h2_math): Hyperbolic vectors, transforms, rays, helper functions.
   - [misc/](src/hypercrystal/misc): Cameras, walkers, billboards, lookup utilities used by projections and demos.
+  - [operators/](src/hypercrystal/operators): Intersections, collisions, and distance calculations.
   - [projections/](src/hypercrystal/projections): Models that map H² entities into drawable Euclidean scenes.
   - [shapes/](src/hypercrystal/shapes): Core geometry (lines, circles, polygons, horocycles, etc.).
   - [tessellations/](src/hypercrystal/tessellations): Tile generation and traversal helpers.
