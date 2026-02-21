@@ -1,7 +1,9 @@
 from .polygon import H2Polygon
 from ..h2_math.h2_vector import H2Vector
 from ..h2_math.h2_transform import H2Transform
+from ..h2_math.low_functions import gamma_from_sidelengths
 from math import sinh, cosh
+import math
 
 
 class H2Circle:

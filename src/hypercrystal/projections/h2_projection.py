@@ -63,13 +63,23 @@ class H2Projection:
     def project_points(self, points: list[H2Vector]) -> list[Vector2]:
         return list(map(self.project, points))
 
+    def project_circle(self, circle: H2Circle) -> ProjectedCircle:
+        raise NotImplementedError("Not Implemented For Current Projection, approximate")
+
     def project_circles(self, circles: list[H2Circle]) -> list[ProjectedCircle]:
-        raise Exception("Not implemented")
+        return list(map(self.project_circle, circles))
+
+    def project_line(self, line: H2Line) -> ProjectedLine:
+        return ProjectedLine(self.project(line.a), self.project(line.b), line.key)
 
     def project_lines(self, lines: list[H2Line]) -> list[ProjectedLine]:
         return list(map(lambda x: ProjectedLine(
             self.project(x.a), self.project(x.b), x.key
         ), lines))
+
+    def project_polygon(self, polygon: H2Polygon) -> ProjectedPolygon:
+        return ProjectedPolygon(
+            self.project_points(polygon.points), polygon.key, polygon.is_spline)
 
     def project_polygons(self, polygons: list[H2Polygon]) -> list[ProjectedPolygon]:
         return list(map(lambda x: ProjectedPolygon(

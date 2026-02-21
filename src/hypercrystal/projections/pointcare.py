@@ -31,10 +31,7 @@ class PointcareModel(H2Projection):
         view_point: H2Vector = H2Vector(t-1, t*y, t*z)
         return self.view_to_world_space(view_point)
 
-    def project_circles(self, circles: list[H2Circle]) -> list[ProjectedCircle]:
-        return list(map(self._project_circle, circles))
-
-    def _project_circle(self, circle: H2Circle) -> ProjectedCircle:
+    def project_circle(self, circle: H2Circle) -> ProjectedCircle:
         to_camera: H2Transform = H2Transform.AtoB(circle.center, self.camera.position, circle.radius)
         from_camera: H2Transform = to_camera.inverse
 

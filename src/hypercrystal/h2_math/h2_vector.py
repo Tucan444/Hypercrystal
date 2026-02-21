@@ -8,6 +8,11 @@ class H2Vector:
         self.y = y
         self.z = z
 
+    def __iter__(self):
+        yield self.x
+        yield self.y
+        yield self.z
+
     # conversions
     @classmethod
     def FromHyperbolical(cls, gamma: float, beta: float) -> 'H2Vector':
@@ -36,17 +41,37 @@ class H2Vector:
     def alpha(self) -> float:
         return math.acosh(max(1., self.x))
 
+    @alpha.setter
+    def alpha(self, new_alpha: float) -> None:
+        modified: H2Vector = H2Vector.FromHyperpolar(self.theta, new_alpha)
+        self.imitate(modified)
+
     @property
     def theta(self) -> float:
         return math.atan2(self.z, self.y)
+
+    @theta.setter
+    def theta(self, new_theta: float) -> None:
+        modified: H2Vector = H2Vector.FromHyperpolar(new_theta, self.alpha)
+        self.imitate(modified)
 
     @property
     def gamma(self) -> float:
         return math.asinh(self.y)
 
+    @gamma.setter
+    def gamma(self, new_gamma: float) -> None:
+        modified: H2Vector = H2Vector.FromHyperbolical(new_gamma, self.beta)
+        self.imitate(modified)
+
     @property
     def beta(self) -> float:
         return atanh2(self.z, self.x)
+
+    @beta.setter
+    def beta(self, new_beta: float) -> None:
+        modified: H2Vector = H2Vector.FromHyperbolical(self.gamma, new_beta)
+        self.imitate(modified)
 
     # functions
     def dot(self, vector: 'H2Vector') -> float:
@@ -86,6 +111,11 @@ class H2Vector:
     @property
     def clone(self) -> 'H2Vector':
         return H2Vector(*self)
+
+    def imitate(self, other: 'H2Vector') -> None:
+        self.x = other.x
+        self.y = other.y
+        self.z = other.z
 
     @property
     def as_string(self) -> str:
