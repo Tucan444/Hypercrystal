@@ -55,7 +55,7 @@ C: H2Circle = H2Circle(c_position, c_radius)
 
 def random_offset(v: H2Vector):
     random_vector: H2Vector = H2Vector.FromHyperpolar(random.uniform(0, math.tau),
-                                                      random.uniform(0, 1))
+                                                      random.uniform(0, 0.5))
     transform: H2Transform = H2Transform.PointInverse(v)
     return transform @ random_vector
 
@@ -66,10 +66,10 @@ c_velocity: H2Vector = random_offset(c_position)
 def update_positions():
     global a_velocity, b_velocity, c_velocity
 
-    G: float = 3
-    dt = (1 / 60) * 0.9
+    G: float = 1
+    dt = 1 / 60
 
-    gravity: callable = lambda a, b: (G * b.area) / (1 + math.sinh(a.center.distance_to(b.center)))
+    gravity: callable = lambda a, b: (G * b.area) / (0.5 + math.sinh(a.center.distance_to(b.center)))
 
     a_velocity = H2Transform.AtoB(A.center, B.center, gravity(A, B) * dt) @ a_velocity
     a_velocity = H2Transform.AtoB(A.center, C.center, gravity(A, C) * dt) @ a_velocity
