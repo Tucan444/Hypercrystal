@@ -7,6 +7,7 @@ from . import notation
 
 from .misc import *
 from .h2_math import *
+from .operators import *
 from .shapes import *
 from .tessellations import *
 from .projections import *

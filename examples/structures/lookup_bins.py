@@ -45,6 +45,9 @@ cull = True
 
 draw_cam_lines = False
 shards = False
+invert = False
+post_invert_scale: float = 10
+
 position = H2Vector.FromHyperpolar(0.4, 0)
 mover = H2Transform.StraightToA(position)
 
@@ -63,6 +66,14 @@ cull_circles = list(map(lambda x: x.circle_hull, lookup_gons))
 
 if shards:
     polygons = list(map(lambda c: c.approximate(lookup_detail*3), cull_circles))
+
+if invert:
+    c = H2Lookup.DOUBLING_CONSTANT
+    for i, polygon in enumerate(polygons):
+        for point in polygon.points:
+            point.alpha = (c / point.alpha) * post_invert_scale
+
+    cull_circles = list(map(lambda x: x.circle_hull, lookup_gons))
 
 for i, polygon in enumerate(polygons):
     polygon.key = i
