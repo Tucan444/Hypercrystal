@@ -42,3 +42,18 @@ class H2Walker:
     def move(self, distance: float) -> None:
         transform: H2Transform = H2Transform.AtoB(self.position, self.forward, distance)
         self._apply_transform(transform)
+
+    @property
+    def as_json(self) -> dict:
+        return {
+            "__class__": self.__class__.__name__,
+            "position": self.position.as_json,
+            "forward": self.forward.as_json
+        }
+
+    @classmethod
+    def from_json(cls, json_data: dict) -> 'H2Walker':
+        return H2Walker(
+            H2Vector.from_json(json_data["position"]),
+            H2Vector.from_json(json_data["forward"])
+        )

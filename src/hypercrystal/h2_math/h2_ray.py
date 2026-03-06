@@ -1,5 +1,4 @@
 from .h2_transform import H2Transform
-from .h2_transform import H2Transform
 from .h2_vector import H2Vector
 from ..notation import H2RayHit
 from ..shapes.line import H2Line
@@ -176,3 +175,18 @@ class H2Ray:
     @staticmethod
     def _sign(x: float) -> float:
         return 1 if x >= 0 else -1
+
+    @property
+    def as_json(self) -> dict:
+        return {
+            "__class__": self.__class__.__name__,
+            "position": self.position.as_json,
+            "direction": self.direction.as_json
+        }
+
+    @classmethod
+    def from_json(cls, json_data: dict) -> 'H2Ray':
+        return H2Ray(
+            H2Vector.from_json(json_data["position"]),
+            H2Vector.from_json(json_data["direction"])
+        )

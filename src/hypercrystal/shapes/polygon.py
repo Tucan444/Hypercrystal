@@ -35,3 +35,20 @@ class H2Polygon:
             points.append(self.points[-1].clone)
 
         return H2Polygon(points, self.key, self.is_spline)
+
+    @property
+    def as_json(self) -> dict:
+        return {
+            "__class__": self.__class__.__name__,
+            "points": [p.as_json for p in self.points],
+            "is spline": self.is_spline
+        }
+
+    @classmethod
+    def from_json(cls, json_data: dict) -> 'H2Polygon':
+        return H2Polygon(
+            points=[
+                H2Vector.from_json(p_data) for p_data in json_data["points"]
+            ],
+            is_spline=json_data["is spline"]
+        )

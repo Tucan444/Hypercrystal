@@ -1,9 +1,8 @@
-from .polygon import H2Polygon
-from ..h2_math.h2_vector import H2Vector
-from ..h2_math.h2_transform import H2Transform
-from ..h2_math.low_functions import gamma_from_sidelengths
 from math import sinh, cosh
-import math
+
+from .polygon import H2Polygon
+from ..h2_math.h2_transform import H2Transform
+from ..h2_math.h2_vector import H2Vector
 
 
 class H2Circle:
@@ -37,3 +36,18 @@ class H2Circle:
             points.append(rotor.apply_on_vector(points[-1]))
 
         return H2Polygon(points, self.key)
+
+    @property
+    def as_json(self) -> dict:
+        return {
+            "__class__": self.__class__.__name__,
+            "center": self.center.as_json,
+            "radius": self.radius
+        }
+
+    @classmethod
+    def from_json(cls, json_data: dict) -> 'H2Circle':
+        return H2Circle(
+            H2Vector.from_json(json_data["center"]),
+            json_data["radius"]
+        )

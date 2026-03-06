@@ -141,3 +141,16 @@ class H2Projection:
     @property
     def cull_circle(self) -> H2Circle:
         return H2Circle(self.camera.position, self.cull_range)
+
+    @property
+    def as_json(self) -> dict:
+        return {
+            "__class__": self.__class__.__name__,
+            "camera": self.camera,
+            "display size": [*self.display_size],
+            "cull range": self.cull_range
+        }
+
+    @classmethod
+    def from_json(cls, json_data: dict) -> 'H2Projection':
+        raise NotImplementedError("projection.from_json not implemented")

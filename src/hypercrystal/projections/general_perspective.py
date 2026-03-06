@@ -48,3 +48,22 @@ class GeneralPerspectiveModel(H2Projection):
     @property
     def disc_present(self) -> bool:
         return True
+
+    @property
+    def as_json(self) -> dict:
+        json_data: dict = super().as_json
+        json_data["__class__"] = self.__class__.__name__
+        json_data["perspective distance"] = self.perspective_distance
+
+        return json_data
+
+    @classmethod
+    def from_json(cls, json_data: dict) -> 'GeneralPerspectiveModel':
+        model: GeneralPerspectiveModel = GeneralPerspectiveModel(
+            H2Camera.from_json(json_data["camera"]),
+            tuple(*json_data["display size"]),
+            json_data["perspective distance"]
+        )
+
+        model.cull_range = json_data["cull range"]
+        return model

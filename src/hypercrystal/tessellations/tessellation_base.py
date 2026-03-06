@@ -112,3 +112,17 @@ class TessellationBase:
             points.append(rotor @ points[-1])
 
         return H2Polygon(points)
+
+    @property
+    def as_json(self) -> dict:
+        return {
+            "__class__": self.__class__.__name__,
+            "p": self.p,
+            "q": self.q,
+            "position": self.position.as_json,
+            "rotation": self.rotation
+        }
+
+    @classmethod
+    def from_json(cls, json_data: dict) -> 'TessellationBase':
+        raise NotImplementedError("tesselation.from_json not implemented")

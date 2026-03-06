@@ -63,3 +63,20 @@ class Horocycle:
             self.sample(1)
         ])
         return H2Circle(center, radius, self.key)
+
+    @property
+    def as_json(self) -> dict:
+        return {
+            "__class__": self.__class__.__name__,
+            "angle to horizon": self.angle_to_horizon,
+            "anchor": self.anchor.as_json,
+            "bounds": list(self.bounds)
+        }
+
+    @classmethod
+    def from_json(cls, json_data: dict) -> 'Horocycle':
+        return Horocycle(
+            json_data["angle to horizon"],
+            H2Vector.from_json(json_data["anchor"]),
+            tuple(json_data["bounds"])
+        )

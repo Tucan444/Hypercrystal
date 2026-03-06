@@ -27,3 +27,20 @@ class GansModel(H2Projection):
 
     def project_circles(self, circles: list[H2Circle]) -> list[ProjectedCircle]:
         raise Exception("NOT SUPPORTED FOR GANS MODEL")
+
+    @property
+    def as_json(self) -> dict:
+        json_data: dict = super().as_json
+        json_data["__class__"] = self.__class__.__name__
+
+        return json_data
+
+    @classmethod
+    def from_json(cls, json_data: dict) -> 'GansModel':
+        model: GansModel = GansModel(
+            H2Camera.from_json(json_data["camera"]),
+            tuple(*json_data["display size"])
+        )
+
+        model.cull_range = json_data["cull range"]
+        return model

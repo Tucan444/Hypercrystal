@@ -122,3 +122,20 @@ class FloodTessellation(TessellationBase):
                 return True
 
         return False
+
+    @property
+    def as_json(self) -> dict:
+        json_data: dict = super().as_json
+        json_data["layers"] = self.layers
+
+        return json_data
+
+    @classmethod
+    def from_json(cls, json_data: dict) -> 'FloodTessellation':
+        return FloodTessellation(
+            json_data["p"],
+            json_data["q"],
+            H2Vector.from_json(json_data["position"]),
+            json_data["rotation"],
+            json_data["layers"]
+        )

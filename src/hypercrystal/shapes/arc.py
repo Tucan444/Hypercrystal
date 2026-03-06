@@ -61,3 +61,20 @@ class H2Arc:
     @property
     def circle_hull(self) -> H2Circle:
         return self.circle
+
+    @property
+    def as_json(self) -> dict:
+        return {
+            "__class__": self.__class__.__name__,
+            "center": self.center.as_json,
+            "anchor": self.anchor.as_json,
+            "length": self.length
+        }
+
+    @classmethod
+    def from_json(cls, json_data: dict) -> 'H2Arc':
+        return H2Arc(
+            H2Vector.from_json(json_data["center"]),
+            H2Vector.from_json(json_data["anchor"]),
+            json_data["length"]
+        )

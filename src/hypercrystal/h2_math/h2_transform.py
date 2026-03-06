@@ -130,6 +130,20 @@ class H2Transform(Matrix3D):
         transform = transform.before(H2Transform.Plane("zy", rotation))
         return transform
 
+    @property
+    def as_json(self) -> dict:
+        json_data: dict = super().as_json
+        json_data["__class__"] = self.__class__.__name__
+        return json_data
+
+    @classmethod
+    def from_json(cls, json_data: dict) -> 'H2Transform':
+        transform: H2Transform = H2Transform()
+        transform.i = H2Vector(*json_data["i"])
+        transform.j = H2Vector(*json_data["j"])
+        transform.k = H2Vector(*json_data["k"])
+        return transform
+
 
 if __name__ == '__main__':
     print("Test 1")

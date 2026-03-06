@@ -291,3 +291,14 @@ class H2Vector:
                 largest_distance = distance
 
         return mean, largest_distance
+
+    @property
+    def as_json(self) -> dict:
+        return {
+            "__class__": self.__class__.__name__,
+            "xyz": [*self]
+        }
+
+    @classmethod
+    def from_json(cls, json_data: dict) -> 'H2Vector':
+        return H2Vector(*json_data["xyz"])

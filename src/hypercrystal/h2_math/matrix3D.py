@@ -20,7 +20,7 @@ class Matrix3D:
     @property
     def as_json(self) -> dict:
         return {
-            "class_name": self.__class__.__name__,
+            "__class__": self.__class__.__name__,
             "i": [*self.i],
             "j": [*self.j],
             "k": [*self.k]

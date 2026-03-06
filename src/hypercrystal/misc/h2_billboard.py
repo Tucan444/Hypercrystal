@@ -68,3 +68,18 @@ class H2Billboard:
         )
 
         target.blit(rotated_image, blit_position)
+
+    @property
+    def as_json(self) -> dict:
+        return {
+            "__class__": self.__class__.__name__,
+            "center": self.center.as_json,
+            "top center": self.top_center.as_json,
+        }
+
+    @classmethod
+    def from_json(cls, json_data: dict) -> 'H2Billboard':
+        return H2Billboard(
+            H2Vector.from_json(json_data["center"]),
+            H2Vector.from_json(json_data["top center"])
+        )

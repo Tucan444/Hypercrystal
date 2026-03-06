@@ -45,3 +45,20 @@ class PointcareModel(H2Projection):
     @property
     def disc_present(self) -> bool:
         return True
+
+    @property
+    def as_json(self) -> dict:
+        json_data: dict = super().as_json
+        json_data["__class__"] = self.__class__.__name__
+
+        return json_data
+
+    @classmethod
+    def from_json(cls, json_data: dict) -> 'PointcareModel':
+        model: PointcareModel = PointcareModel(
+            H2Camera.from_json(json_data["camera"]),
+            tuple(*json_data["display size"])
+        )
+
+        model.cull_range = json_data["cull range"]
+        return model

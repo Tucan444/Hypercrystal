@@ -59,3 +59,20 @@ class Hypercycle:
             self.sample(1)
         ])
         return H2Circle(center, radius, self.key)
+
+    @property
+    def as_json(self) -> dict:
+        return {
+            "__class__": self.__class__.__name__,
+            "line": self.line.as_json,
+            "distance": self.distance,
+            "bounds": list(self.bounds)
+        }
+
+    @classmethod
+    def from_json(cls, json_data: dict) -> 'Hypercycle':
+        return Hypercycle(
+            H2Line.from_json(json_data["line"]),
+            json_data["distance"],
+            tuple(json_data["bounds"])
+        )

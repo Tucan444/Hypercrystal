@@ -169,3 +169,18 @@ class H2Line:
     @property
     def circle_hull(self) -> H2Circle:
         return H2Circle(self.a @ self.b, self.length / 2, self.key)
+
+    @property
+    def as_json(self) -> dict:
+        return {
+            "__class__": self.__class__.__name__,
+            "a": self.a.as_json,
+            "b": self.b.as_json
+        }
+
+    @classmethod
+    def from_json(cls, json_data: dict) -> 'H2Line':
+        return H2Line(
+            H2Vector.from_json(json_data["a"]),
+            H2Vector.from_json(json_data["b"])
+        )

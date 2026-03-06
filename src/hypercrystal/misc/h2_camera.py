@@ -75,3 +75,26 @@ class H2Camera:
 
         inverse: H2Transform = transform.inverse
         self._use_transform(inverse)
+
+    @property
+    def as_json(self) -> dict:
+        return {
+            "__class__": self.__class__.__name__,
+            "position": self.position.as_json,
+            "up": self.up.as_json,
+            "zoom": self.zoom,
+            "invert y movement": self.invert_y_movement,
+            "bounded": self.bounded,
+            "bounded radius": self.bounded_radius
+        }
+
+    @classmethod
+    def from_json(cls, json_data: dict) -> 'H2Camera':
+        return H2Camera(
+            H2Vector.from_json(json_data["position"]),
+            H2Vector.from_json(json_data["up"]),
+            json_data["zoom"],
+            json_data["invert y movement"],
+            json_data["bounded"],
+            json_data["bounded radius"]
+        )
