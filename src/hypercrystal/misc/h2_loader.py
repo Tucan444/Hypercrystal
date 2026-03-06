@@ -72,7 +72,7 @@ class H2Loader:
         with open(path, 'r') as f:
             object_data = json.load(f)
 
-        cls.load(object_data)
+        return cls.load(object_data)
 
     @classmethod
     def save_to_file(cls, path: Path, object_: object) -> None:
