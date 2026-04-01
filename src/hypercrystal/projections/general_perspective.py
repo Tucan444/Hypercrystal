@@ -61,7 +61,7 @@ class GeneralPerspectiveModel(H2Projection):
     def from_json(cls, json_data: dict) -> 'GeneralPerspectiveModel':
         model: GeneralPerspectiveModel = GeneralPerspectiveModel(
             H2Camera.from_json(json_data["camera"]),
-            tuple(*json_data["display size"]),
+            tuple(json_data["display size"]),
             json_data["perspective distance"]
         )
 

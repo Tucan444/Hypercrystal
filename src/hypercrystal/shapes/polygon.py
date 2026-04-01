@@ -1,5 +1,11 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
 from ..h2_math.h2_vector import H2Vector
 from ..h2_math.h2_transform import H2Transform
+
+if TYPE_CHECKING:
+    from .line import H2Line
 
 class H2Polygon:
     def __init__(self, points: list[H2Vector], key=None, is_spline: bool=False) -> None:
@@ -35,6 +41,20 @@ class H2Polygon:
             points.append(self.points[-1].clone)
 
         return H2Polygon(points, self.key, self.is_spline)
+
+    @property
+    def lines(self) -> list[H2Line]:
+        from .line import H2Line
+
+        lines: list[H2Line] = []
+
+        count: int = len(self.points) + (-1 if self.is_spline else 0)
+        for i in range(count):
+            lines.append(H2Line(
+                self.points[i], self.points[(i+1) % len(self.points)]
+            ))
+
+        return lines
 
     @property
     def as_json(self) -> dict:

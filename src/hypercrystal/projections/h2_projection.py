@@ -146,7 +146,7 @@ class H2Projection:
     def as_json(self) -> dict:
         return {
             "__class__": self.__class__.__name__,
-            "camera": self.camera,
+            "camera": self.camera.as_json,
             "display size": [*self.display_size],
             "cull range": self.cull_range
         }

@@ -7,7 +7,8 @@ class H2Camera:
                  bounded: bool=True, bounded_radius: float = 7.5):
         self.position: H2Vector = position
         self.up: H2Vector = up
-        self.right: H2Vector = H2Transform.Around(self.position, -H2Transform.HALF_PI) @ self.up
+        self.right: H2Vector = H2Vector()
+        self.recompute_right()
 
         self.bounded: bool = bounded
         self.bounded_radius: float = bounded_radius
@@ -75,6 +76,12 @@ class H2Camera:
 
         inverse: H2Transform = transform.inverse
         self._use_transform(inverse)
+
+    def recompute_right(self) -> None:
+        self.right = H2Transform.Around(self.position, -H2Transform.HALF_PI) @ self.up
+
+    def recompute_up(self) -> None:
+        self.up = H2Transform.Around(self.position, H2Transform.HALF_PI) @ self.right
 
     @property
     def as_json(self) -> dict:

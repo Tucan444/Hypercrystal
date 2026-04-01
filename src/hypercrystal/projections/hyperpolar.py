@@ -42,7 +42,7 @@ class HyperpolarModel(H2Projection):
     def from_json(cls, json_data: dict) -> 'HyperpolarModel':
         model: HyperpolarModel = HyperpolarModel(
             H2Camera.from_json(json_data["camera"]),
-            tuple(*json_data["display size"])
+            tuple(json_data["display size"])
         )
 
         model.cull_range = json_data["cull range"]

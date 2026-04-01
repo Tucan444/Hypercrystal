@@ -57,7 +57,7 @@ class PointcareModel(H2Projection):
     def from_json(cls, json_data: dict) -> 'PointcareModel':
         model: PointcareModel = PointcareModel(
             H2Camera.from_json(json_data["camera"]),
-            tuple(*json_data["display size"])
+            tuple(json_data["display size"])
         )
 
         model.cull_range = json_data["cull range"]
