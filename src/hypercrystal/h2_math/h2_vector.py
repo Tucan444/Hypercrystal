@@ -253,12 +253,20 @@ class H2Vector:
     # statistics
     @classmethod
     def GetMean(cls, points: list['H2Vector']) -> 'H2Vector':
-        vector: H2Vector = H2Vector()
+        from .h2_transform import H2Transform
 
-        for point in points:
+        vector: H2Vector = H2Vector()
+        stabilizer: H2Transform = H2Transform.StraightToOrigin(points[0])
+
+        stabilized_points: list[H2Vector] = [
+            stabilizer @ point for point in points
+        ]
+
+        for point in stabilized_points:
             vector += point * 20
 
-        return vector.normalized
+        mean: H2Vector = stabilizer.inverse @ vector.normalized
+        return mean
 
     @classmethod
     def GetVariance(cls, points: list['H2Vector'], mean=None) -> float:

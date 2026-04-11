@@ -17,6 +17,14 @@ class H2Camera:
         self.zoom: float = zoom
         self.invert_y_movement: bool = invert_y_movement
 
+    def stabilize(self) -> None:
+        if self.position.magnitude <= 1:
+            return
+
+        self.position = self.position.normalized
+        self.up = self.up.normalized
+        self.recompute_right()
+
     @property
     def transform(self) -> H2Transform:
         return H2Transform.LineToXY(self.position, self.right)

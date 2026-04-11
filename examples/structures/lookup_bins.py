@@ -38,7 +38,7 @@ projection.cull_range = 5
 
 disc: ProjectedCircle = projection.disc
 
-point_count: int = 2_000
+point_count: int = 20_000
 lookup_detail: int = 5
 subdivide_lines: bool = False
 cull = True
