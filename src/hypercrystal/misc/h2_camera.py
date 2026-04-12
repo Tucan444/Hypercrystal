@@ -29,9 +29,12 @@ class H2Camera:
     def transform(self) -> H2Transform:
         return H2Transform.LineToXY(self.position, self.right)
 
-    def _use_transform(self, transform: H2Transform, ignore_position: bool=False) -> None:
+    def _use_transform(self, transform: H2Transform, ignore_position: bool=False,
+                       check_bounds: bool=True) -> None:
         self._apply_transform(transform, ignore_position)
-        self._check_bounds(transform)
+
+        if check_bounds:
+            self._check_bounds()
 
     def _apply_transform(self, transform: H2Transform, ignore_position: bool=False) -> None:
         if not ignore_position:
@@ -75,15 +78,19 @@ class H2Camera:
         direction: H2Vector = rotor.apply_on_vector(self.right)
         self.move(direction, distance)
 
-    def _check_bounds(self, transform: H2Transform) -> None:
+    def _check_bounds(self) -> None:
         if not self.bounded:
             return
 
-        if self.position.alpha <= self.bounded_radius:
+        alpha: float = self.position.alpha
+        if alpha <= self.bounded_radius:
             return
 
-        inverse: H2Transform = transform.inverse
-        self._use_transform(inverse)
+        theta: float = self.position.theta
+        target: H2Vector = H2Vector.FromHyperpolar(theta, -(alpha - self.bounded_radius))
+
+        inverse: H2Transform = H2Transform.StraightToA(target)
+        self._use_transform(inverse, check_bounds=False)
 
     def recompute_right(self) -> None:
         self.right = H2Transform.Around(self.position, -H2Transform.HALF_PI) @ self.up
