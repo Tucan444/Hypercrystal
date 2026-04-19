@@ -31,7 +31,7 @@ alive = True
 
 camera = H2Camera(H2Vector(), H2Vector.FromHyperbolical(0, 1), zoom=0.95)
 projection = PointcareModel(camera, Window_size)
-projection.cull_range = 1
+projection.cull_range = 4
 
 disc: ProjectedCircle = projection.disc
 
