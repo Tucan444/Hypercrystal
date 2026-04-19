@@ -3,6 +3,7 @@ from pygame import Vector2
 from ..h2_math.h2_vector import H2Vector
 from ..h2_math.h2_transform import H2Transform
 from ..misc.h2_camera import H2Camera
+from ..misc.h2_cluster import H2Cluster
 from ..notation import Resolution
 from ..shapes.projected import ProjectedCircle, ProjectedLine, ProjectedPolygon
 from ..shapes.circle import H2Circle
@@ -119,6 +120,20 @@ class H2Projection:
 
         return projected
 
+    def cull_cluster(self, cluster: H2Cluster) -> list[H2Circle]:
+        circles: list[H2Circle] = self.cull_circles(cluster.circles)
+
+        for sub_cluster in cluster.clusters:
+            if sub_cluster.circle is None:
+                sub_cluster.compute_circle()
+
+            if self.to_cull_circle(sub_cluster.circle):
+                continue
+
+            circles += self.cull_cluster(sub_cluster)
+
+        return circles
+
     def cull_circles(self, circles: list[H2Circle]) -> list[H2Circle]:
         return list(filter(self.to_not_cull_circle, circles))
 
@@ -126,8 +141,9 @@ class H2Projection:
         return not self.to_cull_circle(circle)
 
     def to_cull_circle(self, circle: H2Circle) -> bool:
-        view_point: H2Vector = self.world_to_view_space(circle.center)
-        closest_presence: float = view_point.alpha - circle.radius
+        #view_point: H2Vector = self.world_to_view_space(circle.center)
+        #closest_presence: float = view_point.alpha - circle.radius
+        closest_presence: float = circle.center.distance_to(self.camera.position) - circle.radius
         return closest_presence > self.cull_range
 
     @property
