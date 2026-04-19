@@ -121,7 +121,10 @@ class H2Projection:
         return projected
 
     def cull_cluster(self, cluster: H2Cluster) -> list[H2Circle]:
-        circles: list[H2Circle] = self.cull_circles(cluster.circles)
+        return list(self._cull_cluster(cluster))
+
+    def _cull_cluster(self, cluster: H2Cluster) -> list[H2Circle]:
+        yield from self.cull_circles(cluster.circles)
 
         for sub_cluster in cluster.clusters:
             if sub_cluster.circle is None:
@@ -130,9 +133,7 @@ class H2Projection:
             if self.to_cull_circle(sub_cluster.circle):
                 continue
 
-            circles += self.cull_cluster(sub_cluster)
-
-        return circles
+            yield from self.cull_cluster(sub_cluster)
 
     def cull_circles(self, circles: list[H2Circle]) -> list[H2Circle]:
         return list(filter(self.to_not_cull_circle, circles))

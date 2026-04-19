@@ -31,14 +31,14 @@ alive = True
 
 camera = H2Camera(H2Vector(), H2Vector.FromHyperbolical(0, 1), zoom=0.95)
 projection = PointcareModel(camera, Window_size)
-projection.cull_range = 4
+projection.cull_range = 1
 
 disc: ProjectedCircle = projection.disc
 
 draw_clusters: bool = False
-k_clusters: int = 6
+k_clusters: int = 4
 steps: int = 5
-leaf_n: int = 20
+leaf_n: int = 10
 
 layers = 9
 p = 7
@@ -172,4 +172,4 @@ while alive:
 
     screen.blit(display, dp)
     pygame.display.update()
-    clock.tick(120)
+    clock.tick(1020)
