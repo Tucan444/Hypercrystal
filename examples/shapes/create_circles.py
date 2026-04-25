@@ -32,7 +32,7 @@ alive = True
 # end of basic config
 
 camera = H2Camera(H2Vector(), H2Vector.FromHyperbolical(0, 1), zoom=0.95)
-projection = GeneralPerspectiveModel(camera, Window_size, 1 )
+projection = GeneralPerspectiveModel(camera, Window_size, 2 )
 
 disc: ProjectedCircle = projection.disc
 

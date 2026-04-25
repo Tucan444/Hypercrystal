@@ -30,14 +30,14 @@ alive = True
 # end of basic config
 
 camera = H2Camera(H2Vector(), H2Vector.FromHyperbolical(0, 1), zoom=0.95)
-projection = GeneralPerspectiveModel(camera, Window_size, perspective_distance=2)
+projection = SquishModel(camera, Window_size, perspective_distance=1)
 projection.cull_range = 4
 
 disc: ProjectedCircle = projection.disc
 
-layers = 8
-p = 4
-q = 5
+layers = 6
+p = 5
+q = 4
 position = H2Vector.FromHyperpolar(0.1, 0.01)
 rotation = -math.tau / 4
 draw_lines = False
@@ -49,7 +49,7 @@ visualize_lookup_tesselation = False
 lookup_detail: int = 3
 subdivide_lines: bool = True
 
-coloring: int = 2  # 0-red, 1-blue, 2-green
+coloring: int = 1  # 0-red, 1-blue, 2-green
 draw_cam_lines = False
 
 FloodTessellation.LOG_PROGRESS = True
@@ -99,6 +99,10 @@ while alive:
     display.fill((40, 40, 40))
 
     pygame.draw.circle(display, (20, 20, 20), disc.center, disc.radius)
+
+    if type(projection) in [SquareModel, SquishModel]:
+        lsh: ProjectedPolygon = projection.limit_shape
+        pygame.draw.polygon(display, (20, 20, 20), lsh.points)
 
     projection.update()
 

@@ -5,8 +5,10 @@ from .klein import KleinModel
 from .hyperbolical import HyperbolicalModel
 from .hyperpolar import HyperpolarModel
 from .general_perspective import GeneralPerspectiveModel
+from .square import SquareModel
+from .squish import SquishModel
 
 __all__ = [
     "GansModel", "PointcareModel", "H2Camera", "KleinModel", "HyperbolicalModel",
-    "HyperpolarModel", "GeneralPerspectiveModel"
+    "HyperpolarModel", "GeneralPerspectiveModel", "SquareModel", "SquishModel"
 ]
