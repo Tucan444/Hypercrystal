@@ -22,7 +22,8 @@ class SquishModel(H2Projection):
             view_point.z / (self.perspective_distance + view_point.x))
 
         magnitude: float = projected_point.length()
-        projected_point *= magnitude / max(abs(projected_point.x), abs(projected_point.y))
+        if magnitude > 0.0001:
+            projected_point *= magnitude / max(abs(projected_point.x), abs(projected_point.y))
 
         if self.display_size[0] > self.display_size[1]:
             projected_point.x *= self.display_size[0] / self.display_size[1]
@@ -40,7 +41,8 @@ class SquishModel(H2Projection):
             projected_point.y /= self.display_size[1] / self.display_size[0]
 
         magnitude: float = max(abs(projected_point.x), abs(projected_point.y))
-        projected_point *= magnitude / projected_point.length()
+        if magnitude > 0.0001:
+            projected_point *= magnitude / projected_point.length()
 
         y, z = projected_point
 

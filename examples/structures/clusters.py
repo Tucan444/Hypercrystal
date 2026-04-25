@@ -67,7 +67,6 @@ print(f"Tiling generation took: {time.time() - t}s")
 tilegons = tesselation.tile_polygons
 cull_circles = tesselation.tile_circles
 
-
 t = time.time()
 cluster = H2Cluster.clusterize(cull_circles, k_clusters, steps, leaf_n)
 print(f"Cluster generation took: {time.time() - t}s")

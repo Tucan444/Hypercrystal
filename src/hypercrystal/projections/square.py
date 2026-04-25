@@ -22,7 +22,8 @@ class SquareModel(H2Projection):
             view_point.z / (self.perspective_distance + view_point.x))
 
         magnitude: float = projected_point.length()
-        projected_point *= magnitude / max(abs(projected_point.x), abs(projected_point.y))
+        if magnitude > 0.0001:
+            projected_point *= magnitude / max(abs(projected_point.x), abs(projected_point.y))
 
         return self.projected_to_display_space(projected_point)
 
@@ -30,7 +31,8 @@ class SquareModel(H2Projection):
         projected_point: Vector2 = self.display_to_projected_space(point)
 
         magnitude: float = max(abs(projected_point.x), abs(projected_point.y))
-        projected_point *= magnitude / projected_point.length()
+        if magnitude > 0.0001:
+            projected_point *= magnitude / projected_point.length()
 
         y, z = projected_point
 

@@ -48,6 +48,8 @@ shards = False
 invert = False
 post_invert_scale: float = 10
 
+complex_coloring: bool = True
+
 position = H2Vector.FromHyperpolar(0.4, 0)
 mover = H2Transform.StraightToA(position)
 
@@ -61,6 +63,7 @@ for _ in range(point_count):
 print(f"Lookup bins count: {lookup.bin_count}")
 
 lookup_gons = lookup.get_polygons(lookup_detail, subdivide_lines)
+cords = list(lookup.table.keys())
 polygons = lookup_gons
 cull_circles = list(map(lambda x: x.circle_hull, lookup_gons))
 
@@ -81,6 +84,44 @@ for i, polygon in enumerate(polygons):
 
 colors = [(random.randint(150, 255), random.randint(50, 100), random.randint(150, 255))
           for _ in range(len(polygons))]
+
+if complex_coloring:
+    colors = []
+    for code in cords:
+        x, y = code
+        z = round(x) & round(y)
+
+
+        def is_prime(n):
+            if n < 2: return False
+            if n in (2, 3): return True
+            if n % 2 == 0 or n % 3 == 0: return False
+
+            # All primes > 3 are of the form 6k ± 1.
+            for i in range(5, math.isqrt(n) + 1, 6):
+                if n % i == 0 or n % (i + 2) == 0:
+                    return False
+
+            return True
+
+        if is_prime(z):
+            colors.append((0, 0, 0))
+            continue
+
+        digit = z % 10
+
+        colors.append({
+            0: (87, 0, 181),
+            1: (237, 62, 76),
+            2: (255, 255, 0),
+            3: (0, 255, 0),
+            4: (237, 236, 62),
+            5: (0, 0, 255),
+            6: (237, 62, 207),
+            7: (128, 128, 160),
+            8: (237, 142, 62),
+            9: (150, 20, 70)
+                      }[digit])
 
 
 t = time.time()

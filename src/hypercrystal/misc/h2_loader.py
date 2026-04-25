@@ -16,6 +16,8 @@ from ..projections.hyperbolical import HyperbolicalModel
 from ..projections.hyperpolar import HyperpolarModel
 from ..projections.klein import KleinModel
 from ..projections.pointcare import PointcareModel
+from ..projections.square import SquareModel
+from ..projections.squish import SquishModel
 
 from ..shapes.arc import H2Arc
 from ..shapes.circle import H2Circle
@@ -43,6 +45,8 @@ class H2Loader:
         "HyperpolarModel": HyperpolarModel,
         "KleinModel": KleinModel,
         "PointcareModel": PointcareModel,
+        "SquareModel": SquareModel,
+        "SquishModel": SquishModel,
         "H2Arc": H2Arc,
         "H2Circle": H2Circle,
         "Horocycle": Horocycle,
