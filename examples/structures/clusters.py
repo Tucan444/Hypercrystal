@@ -35,12 +35,12 @@ projection.cull_range = 4
 
 disc: ProjectedCircle = projection.disc
 
-draw_clusters: bool = False
+draw_clusters: bool = True
 k_clusters: int = 4
 steps: int = 5
 leaf_n: int = 10
 
-layers = 9
+layers = 4
 p = 7
 q = 3
 position = H2Vector.FromHyperpolar(0.1, 0.01)

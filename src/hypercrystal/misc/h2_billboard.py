@@ -37,6 +37,14 @@ class H2Billboard:
     def right_center(self) -> H2Vector:
         return self._right_center
 
+    @property
+    def area_scale(self) -> float:
+        return self.projected_x_size * self.projected_y_size
+
+    @property
+    def length_scale(self) -> float:
+        return math.sqrt(self.area_scale)
+
     def update(self, projection: H2Projection) -> None:
         self.projected_center = projection.project(self.center)
         self.projected_top_center = projection.project(self.top_center)
