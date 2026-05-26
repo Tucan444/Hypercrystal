@@ -35,6 +35,19 @@ class H2Projection:
         self.center: Vector2 = Vector2(
             self.display_size[0] // 2, self.display_size[1] // 2)
 
+    @property
+    def unit_pixel_length(self) -> float:
+        dummy_camera: H2Camera = H2Camera(H2Vector(), H2Vector.FromHyperpolar(0, 1), zoom=self.camera.zoom)
+        real_camera: H2Camera = self.camera
+        self.camera = dummy_camera
+        self._update_camera_consequences()
+
+        length: float = (self.center - self.project(H2Vector.FromHyperpolar(0, 1))).length()
+        self.camera = real_camera
+        self._update_camera_consequences()
+
+        return length
+
     def _update_camera_consequences(self) -> None:
         self.view_transform = self.camera.transform
         self.inverse_view_transform = self.view_transform.inverse
