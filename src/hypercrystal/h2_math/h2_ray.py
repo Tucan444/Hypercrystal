@@ -7,7 +7,7 @@ from ..shapes.circle import H2Circle
 from .low_functions import pythagorean_get_a
 
 
-type CASTABLE_SHAPE = H2Line | H2Circle | H2Polygon | H2Ray
+CASTABLE_SHAPE = 'H2Line | H2Circle | H2Polygon | H2Ray'
 
 
 class H2Ray:

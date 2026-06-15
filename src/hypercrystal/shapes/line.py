@@ -14,8 +14,6 @@ class H2Line:
         self.b: H2Vector = b
         self.key = key
 
-        assert self.length != 0
-
     @classmethod
     def LimitingToHorizon(cls, angle_to_horizon: float, a: H2Vector) -> 'H2Line':
         horizon_point: Vector2 = Vector2(math.cos(angle_to_horizon), math.sin(angle_to_horizon))
