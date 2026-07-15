@@ -1,6 +1,6 @@
 # Hypercrystal
 
-Hyperbolic geometry utilities and visualizations for experiments,
+Realtime hyperbolic geometry utilities and visualizations for experiments,
 prototyping and research. The library exposes math primitives, projection
 models, shapes, and camera abstractions that power the scripts in
 [examples](examples).
