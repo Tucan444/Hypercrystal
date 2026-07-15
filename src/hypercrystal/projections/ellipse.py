@@ -11,7 +11,7 @@ from ..shapes.projected import ProjectedPolygon, ProjectedCircle
 
 
 class EllipseModel(H2Projection):
-    LIMIT_SHAPE_POINTS_N = 32
+    LIMIT_SHAPE_POINTS_N = 64
 
     def __init__(self, camera: H2Camera, display_size: Resolution, perspective_distance=2):
         super().__init__(camera, display_size)
