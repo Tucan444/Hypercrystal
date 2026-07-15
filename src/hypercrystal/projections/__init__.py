@@ -7,8 +7,9 @@ from .hyperpolar import HyperpolarModel
 from .general_perspective import GeneralPerspectiveModel
 from .square import SquareModel
 from .squish import SquishModel
+from .ellipse import EllipseModel
 
 __all__ = [
     "GansModel", "PointcareModel", "H2Camera", "KleinModel", "HyperbolicalModel",
-    "HyperpolarModel", "GeneralPerspectiveModel", "SquareModel", "SquishModel"
+    "HyperpolarModel", "GeneralPerspectiveModel", "SquareModel", "SquishModel", "EllipseModel"
 ]

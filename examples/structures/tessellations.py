@@ -30,8 +30,8 @@ alive = True
 # end of basic config
 
 camera = H2Camera(H2Vector(), H2Vector.FromHyperbolical(0, 1), zoom=0.95)
-projection = SquishModel(camera, Window_size, perspective_distance=1)
-projection.cull_range = 4
+projection = EllipseModel(camera, Window_size, perspective_distance=2)
+projection.cull_range = 5
 
 disc: ProjectedCircle = projection.disc
 
@@ -98,9 +98,10 @@ while alive:
     # blitting and drawing
     display.fill((40, 40, 40))
 
-    pygame.draw.circle(display, (20, 20, 20), disc.center, disc.radius)
+    if projection.disc_present:
+        pygame.draw.circle(display, (20, 20, 20), disc.center, disc.radius)
 
-    if type(projection) in [SquareModel, SquishModel]:
+    if type(projection) in [SquareModel, SquishModel, EllipseModel]:
         lsh: ProjectedPolygon = projection.limit_shape
         pygame.draw.polygon(display, (20, 20, 20), lsh.points)
 
