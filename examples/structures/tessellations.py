@@ -29,8 +29,8 @@ moving = False
 alive = True
 # end of basic config
 
-camera = H2Camera(H2Vector(), H2Vector.FromHyperbolical(0, 1), zoom=0.95)
-projection = EllipseModel(camera, Window_size, perspective_distance=2)
+camera = H2Camera(H2Vector(), H2Vector.FromHyperbolical(0, 1), zoom=1)
+projection = HorosphericalModel(camera, Window_size)#, perspective_distance=2)
 projection.cull_range = 5
 
 disc: ProjectedCircle = projection.disc

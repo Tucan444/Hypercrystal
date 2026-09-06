@@ -8,8 +8,11 @@ from .general_perspective import GeneralPerspectiveModel
 from .square import SquareModel
 from .squish import SquishModel
 from .ellipse import EllipseModel
+from .half_space import HalfSpaceModel
+from .horospherical import HorosphericalModel
 
 __all__ = [
     "GansModel", "PointcareModel", "H2Camera", "KleinModel", "HyperbolicalModel",
-    "HyperpolarModel", "GeneralPerspectiveModel", "SquareModel", "SquishModel", "EllipseModel"
+    "HyperpolarModel", "GeneralPerspectiveModel", "SquareModel", "SquishModel", "EllipseModel",
+    "HalfSpaceModel", "HorosphericalModel"
 ]

@@ -17,7 +17,7 @@ pygame.init()
 pygame.mixer.set_num_channels(16)
 available = pygame.font.get_fonts()
 
-Window_size = (900, 700)
+Window_size = (900, 400)
 Default_size = Window_size
 center: Vector2 = Vector2(Window_size[0] // 2, Window_size[1] // 2)
 screen = pygame.display.set_mode(Window_size)
@@ -31,8 +31,8 @@ moving = False
 alive = True
 # end of basic config
 
-camera = H2Camera(H2Vector(), H2Vector.FromHyperbolical(0, 1), zoom=0.95)
-projection = GeneralPerspectiveModel(camera, Window_size, 2 )
+camera = H2Camera(H2Vector(), H2Vector.FromHyperbolical(0, 1), zoom=1)
+projection = HalfSpaceModel(camera, Window_size)#, 2 )
 
 disc: ProjectedCircle = projection.disc
 

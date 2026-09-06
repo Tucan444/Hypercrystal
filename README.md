@@ -100,9 +100,13 @@ Projecting lines and polygons is defined for all projections even if lines cant 
 | --- | --- | --- |
 | ![HyperpolarModel](media/projections/hyperpolar.png) | ![HyperbolicalModel](media/projections/hyperbolical.png) | ![GeneralPerspectiveModel 2.0](media/projections/general_perspective_distance_2.png) |
 
-| GeneralPerspectiveModel (P = -0.8) | SquareModel (P = 2.0) |
+| GeneralPerspectiveModel (P = -0.8) | SquareModel (P = 2.0) | EllipseModel |
+| --- | --- | --- |
+| ![GeneralPerspectiveModel -0.8](media/projections/general_perspective_distance_-0.8.png) | ![SquareModel 2.0](media/projections/square_perspective_distance_2.png) | ![EllipseModel](media/projections/ellipse.png) |
+
+| HalfSpaceModel | HorosphericalModel |
 | --- | --- |
-| ![GeneralPerspectiveModel -0.8](media/projections/general_perspective_distance_-0.8.png) | ![SquareModel 2.0](media/projections/square_perspective_distance_2.png) |
+| ![HalfSpaceModel](media/projections/half_space.png) | ![HorosphericalModel](media/projections/horospherical.png) |
 
 ### Projection descriptions
 
@@ -113,6 +117,8 @@ Projecting lines and polygons is defined for all projections even if lines cant 
 - [`HyperpolarModel`](src/hypercrystal/projections/hyperpolar.py) — interprets hyperpolar coordinates directly as Euclidean polar coordinates for rendering.
 - [`HyperbolicalModel`](src/hypercrystal/projections/hyperbolical.py) — treats hyperbolical coordinates as Euclidean `(x, y)` pairs, offering a literal view of the native parameter space.
 - [`SquareModel`](src/hypercrystal/projections/square.py) — essentially a general perspective projection warped into a square.
+- [`HalfSpaceModel`](src/hypercrystal/projections/half_space.py) — maps the Poincaré disk to the upper half-plane, sending the circular boundary to a flat horizon line.
+- [`HorosphericalModel`](src/hypercrystal/projections/horospherical.py) — applies a logarithmic transform to the vertical axis of the half-plane projection, rendering horocycles centered at infinity as horizontal lines.
 
 The [`EllipseModel`](src/hypercrystal/projections/ellipse.py) and [`SquishModel`](src/hypercrystal/projections/squish.py) simply stretch the `GeneralPerspectiveModel` and `SquareModel` respectively to fill the entire screen dimensions.
 
