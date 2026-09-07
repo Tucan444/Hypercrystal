@@ -65,6 +65,11 @@ for y in range(image_size[1]):
                 break
 
             z = H2Vector.FromHyperpolar(z.theta * power, z.alpha ** power)
+
+            # uncomment lines below for LEft
+            #adder = H2Transform.StraightToA(z)
+            #z = adder @ position
+
             z = adder @ z
 
         if z.alpha <= 2:
