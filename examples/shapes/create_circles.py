@@ -31,8 +31,8 @@ moving = False
 alive = True
 # end of basic config
 
-camera = H2Camera(H2Vector(), H2Vector.FromHyperbolical(0, 1), zoom=1)
-projection = HalfSpaceModel(camera, Window_size)#, 2 )
+camera = H2Camera(H2Vector(), H2Vector.FromHyperbolical(0, 1), zoom=0.3)
+projection = HorosphericalModel(camera, Window_size)#, 2 )
 
 disc: ProjectedCircle = projection.disc
 

@@ -23,10 +23,9 @@ class HorosphericalModel(H2Projection):
 
         projected_point.y += 1
         projected_point *= 4/projected_point.magnitude_squared()
-        projected_point.y -= 1
+        projected_point.y -= 2
 
         projected_point.y = math.log2(abs(projected_point.y))
-        projected_point.y -= 1
         projected_point.y *= -1
 
         return self.projected_to_display_space(projected_point)
@@ -35,10 +34,9 @@ class HorosphericalModel(H2Projection):
         projected_point: Vector2 = self.display_to_projected_space(point)
 
         projected_point.y *= -1
-        projected_point.y += 1
         projected_point.y = 2 ** projected_point.y
 
-        projected_point.y += 1
+        projected_point.y += 2
         projected_point *= 4 / projected_point.magnitude_squared()
         projected_point.y -= 1
 

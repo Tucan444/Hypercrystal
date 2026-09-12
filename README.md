@@ -118,7 +118,7 @@ Projecting lines and polygons is defined for all projections even if lines cant 
 - [`HyperbolicalModel`](src/hypercrystal/projections/hyperbolical.py) — treats hyperbolical coordinates as Euclidean `(x, y)` pairs, offering a literal view of the native parameter space.
 - [`SquareModel`](src/hypercrystal/projections/square.py) — essentially a general perspective projection warped into a square.
 - [`HalfSpaceModel`](src/hypercrystal/projections/half_space.py) — maps the Poincaré disk to the upper half-plane, sending the circular boundary to a flat horizon line.
-- [`HorosphericalModel`](src/hypercrystal/projections/horospherical.py) — applies a logarithmic transform to the vertical axis of the half-plane projection, rendering horocycles centered at infinity as horizontal lines.
+- [`HorosphericalModel`](src/hypercrystal/projections/horospherical.py) — applies a log2 transform to the vertical axis of the half-plane projection.
 
 The [`EllipseModel`](src/hypercrystal/projections/ellipse.py) and [`SquishModel`](src/hypercrystal/projections/squish.py) simply stretch the `GeneralPerspectiveModel` and `SquareModel` respectively to fill the entire screen dimensions.
 
